@@ -398,8 +398,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 10
-#define YY_END_OF_BUFFER 11
+#define YY_NUM_RULES 9
+#define YY_END_OF_BUFFER 10
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -409,7 +409,7 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[14] =
     {   0,
-        0,    0,   11,    9,    3,    7,    8,    5,    4,    6,
+        0,    0,   10,    9,    3,    7,    8,    5,    4,    6,
         1,    2,    0
     } ;
 
@@ -475,9 +475,9 @@ static yyconst flex_int16_t yy_chk[21] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static yyconst flex_int32_t yy_rule_can_match_eol[11] =
+static yyconst flex_int32_t yy_rule_can_match_eol[10] =
     {   0,
-0, 0, 1, 0, 0, 0, 0, 0, 0, 0,     };
+0, 0, 1, 0, 0, 0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -493,13 +493,13 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "Bison/lexer.l"
-#line 5 "Bison/lexer.l"
+#line 1 "Lemon/lexer.l"
+#line 5 "Lemon/lexer.l"
   /*Includes area*/
 #include "tokens.h"
 #include <iostream>
 using namespace std;
-
+string* token;
 #line 504 "expression_lexer.cpp"
 
 #define INITIAL 0
@@ -718,7 +718,7 @@ YY_DECL
 		}
 
 	{
-#line 12 "Bison/lexer.l"
+#line 12 "Lemon/lexer.l"
 
 #line 724 "expression_lexer.cpp"
 
@@ -789,56 +789,51 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 13 "Bison/lexer.l"
-{ yylval.string_t =  new string(yytext) ;return LIT_INT; }
+#line 13 "Lemon/lexer.l"
+{ token = new string(yytext) ; return LIT_INT; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 14 "Bison/lexer.l"
-{  yylval.string_t =  new string(yytext) ;return LIT_LETTER; }
+#line 14 "Lemon/lexer.l"
+{  token = new string(yytext) ; return LIT_LETTER; }
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 15 "Bison/lexer.l"
+#line 15 "Lemon/lexer.l"
 {  }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 16 "Bison/lexer.l"
+#line 16 "Lemon/lexer.l"
 { return OP_PIPE; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 17 "Bison/lexer.l"
+#line 17 "Lemon/lexer.l"
 { return OP_KLEENE; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 18 "Bison/lexer.l"
+#line 18 "Lemon/lexer.l"
 { return OP_CONCAT; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 19 "Bison/lexer.l"
+#line 19 "Lemon/lexer.l"
 { return TK_LEFT_PAR; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 20 "Bison/lexer.l"
+#line 20 "Lemon/lexer.l"
 { return TK_RIGHT_PAR; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 21 "Bison/lexer.l"
-{ return TK_ERROR; }
-	YY_BREAK
-case 10:
-YY_RULE_SETUP
-#line 23 "Bison/lexer.l"
+#line 22 "Lemon/lexer.l"
 ECHO;
 	YY_BREAK
-#line 842 "expression_lexer.cpp"
+#line 837 "expression_lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1851,7 +1846,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 23 "Bison/lexer.l"
+#line 22 "Lemon/lexer.l"
 
 
 
