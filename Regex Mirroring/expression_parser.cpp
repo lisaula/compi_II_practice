@@ -31,11 +31,16 @@
   #include<iostream>
   #include<stdlib.h>
   #include<string>
-
+  #include<algorithm>
+  #include<vector>
   using namespace std;
 
   extern int yylineno;
-#line 39 "expression_parser.cpp"
+
+  void reverse_string(string* str){
+    reverse(str->begin(), str->end());
+  }
+#line 44 "expression_parser.cpp"
 /**************** End of %include directives **********************************/
 /* These constants specify the various numeric values for terminal symbols
 ** in a format understandable to "makeheaders".  This section is blank unless
@@ -95,13 +100,13 @@
 #endif
 /************* Begin control #defines *****************************************/
 #define YYCODETYPE unsigned char
-#define YYNOCODE 16
+#define YYNOCODE 19
 #define YYACTIONTYPE unsigned char
 #define ParseTOKENTYPE  string* 
 typedef union {
   int yyinit;
   ParseTOKENTYPE yy0;
-  string* yy22;
+  string* yy34;
 } YYMINORTYPE;
 #ifndef YYSTACKDEPTH
 #define YYSTACKDEPTH 100
@@ -110,16 +115,16 @@ typedef union {
 #define ParseARG_PDECL
 #define ParseARG_FETCH
 #define ParseARG_STORE
-#define YYNSTATE             10
-#define YYNRULE              11
-#define YY_MAX_SHIFT         9
-#define YY_MIN_SHIFTREDUCE   17
-#define YY_MAX_SHIFTREDUCE   27
-#define YY_MIN_REDUCE        28
-#define YY_MAX_REDUCE        38
-#define YY_ERROR_ACTION      39
-#define YY_ACCEPT_ACTION     40
-#define YY_NO_ACTION         41
+#define YYNSTATE             12
+#define YYNRULE              14
+#define YY_MAX_SHIFT         11
+#define YY_MIN_SHIFTREDUCE   21
+#define YY_MAX_SHIFTREDUCE   34
+#define YY_MIN_REDUCE        35
+#define YY_MAX_REDUCE        48
+#define YY_ERROR_ACTION      49
+#define YY_ACCEPT_ACTION     50
+#define YY_NO_ACTION         51
 /************* End control #defines *******************************************/
 
 /* Define the yytestcase() macro to be a no-op if is not already defined
@@ -187,33 +192,37 @@ typedef union {
 **  yy_default[]       Default action for each state.
 **
 *********** Begin parsing tables **********************************************/
-#define YY_ACTTAB_COUNT (25)
+#define YY_ACTTAB_COUNT (40)
 static const YYACTIONTYPE yy_action[] = {
- /*     0 */     7,    8,   21,    4,   24,   40,    6,    8,   21,    4,
- /*    10 */     1,   20,    4,   26,   27,   23,    9,   21,    4,    2,
- /*    20 */    28,    2,    5,   22,    3,
+ /*     0 */     9,   10,   27,    5,    1,   35,   50,   26,    5,    2,
+ /*    10 */    22,    3,   32,   33,   34,   29,   30,    2,   28,    3,
+ /*    20 */    32,   33,   34,    4,   37,    8,   10,   27,    5,    7,
+ /*    30 */    10,   27,    5,   11,   27,    5,    3,   37,   37,    6,
 };
 static const YYCODETYPE yy_lookahead[] = {
- /*     0 */     9,   10,   11,   12,    5,   14,    9,   10,   11,   12,
- /*    10 */     3,   11,   12,    6,    7,   13,   10,   11,   12,    1,
- /*    20 */     0,    1,    4,   13,    2,
+ /*     0 */    11,   12,   13,   14,   15,    0,   17,   13,   14,    4,
+ /*    10 */     1,    2,    7,    8,    9,   16,    6,    4,   16,    2,
+ /*    20 */     7,    8,    9,    3,   18,   11,   12,   13,   14,   11,
+ /*    30 */    12,   13,   14,   12,   13,   14,    2,   18,   18,    5,
 };
-#define YY_SHIFT_USE_DFLT (-2)
-#define YY_SHIFT_COUNT (9)
-#define YY_SHIFT_MIN   (-1)
-#define YY_SHIFT_MAX   (22)
+#define YY_SHIFT_USE_DFLT (-1)
+#define YY_SHIFT_COUNT (11)
+#define YY_SHIFT_MIN   (0)
+#define YY_SHIFT_MAX   (34)
 static const signed char yy_shift_ofst[] = {
- /*     0 */     7,    7,    7,    7,   -1,   -1,   18,   20,   22,   22,
+ /*     0 */    13,    5,   13,   13,   13,   10,   10,   34,    9,   17,
+ /*    10 */    20,   20,
 };
-#define YY_REDUCE_USE_DFLT (-10)
-#define YY_REDUCE_COUNT (5)
-#define YY_REDUCE_MIN   (-9)
-#define YY_REDUCE_MAX   (10)
+#define YY_REDUCE_USE_DFLT (-12)
+#define YY_REDUCE_COUNT (6)
+#define YY_REDUCE_MIN   (-11)
+#define YY_REDUCE_MAX   (21)
 static const signed char yy_reduce_ofst[] = {
- /*     0 */    -9,   -3,    6,    0,    2,   10,
+ /*     0 */   -11,   14,   18,   21,   -6,   -1,    2,
 };
 static const YYACTIONTYPE yy_default[] = {
- /*     0 */    39,   39,   39,   39,   36,   36,   39,   39,   30,   29,
+ /*     0 */    49,   49,   49,   49,   49,   45,   45,   49,   49,   37,
+ /*    10 */    39,   38,
 };
 /********** End of lemon-generated parsing tables *****************************/
 
@@ -317,10 +326,11 @@ void ParseTrace(FILE *TraceFILE, char *zTracePrompt){
 /* For tracing shifts, the names of all terminals and nonterminals
 ** are required.  The following table supplies these names */
 static const char *const yyTokenName[] = { 
-  "$",             "OP_PIPE",       "OP_CONCAT",     "TK_LEFT_PAR", 
-  "TK_RIGHT_PAR",  "OP_KLEENE",     "LIT_INT",       "LIT_LETTER",  
-  "error",         "e",             "t",             "f",           
-  "r",             "kleene_optional",  "input",       
+  "$",             "TK_EOL",        "OP_PIPE",       "OP_CONCAT",   
+  "TK_LEFT_PAR",   "TK_RIGHT_PAR",  "OP_KLEENE",     "LIT_INT",     
+  "LIT_LETTER",    "LIT_STRING",    "error",         "e",           
+  "t",             "f",             "r",             "list",        
+  "kleene_optional",  "input",       
 };
 #endif /* NDEBUG */
 
@@ -328,17 +338,20 @@ static const char *const yyTokenName[] = {
 /* For tracing reduce actions, the names of all rules are required.
 */
 static const char *const yyRuleName[] = {
- /*   0 */ "input ::= e",
- /*   1 */ "e ::= e OP_PIPE t",
- /*   2 */ "e ::= t",
- /*   3 */ "t ::= t OP_CONCAT f",
- /*   4 */ "t ::= f",
- /*   5 */ "f ::= TK_LEFT_PAR e TK_RIGHT_PAR kleene_optional",
- /*   6 */ "f ::= r kleene_optional",
- /*   7 */ "kleene_optional ::= OP_KLEENE",
- /*   8 */ "kleene_optional ::=",
- /*   9 */ "r ::= LIT_INT",
- /*  10 */ "r ::= LIT_LETTER",
+ /*   0 */ "input ::= list",
+ /*   1 */ "list ::= list e TK_EOL",
+ /*   2 */ "list ::= e",
+ /*   3 */ "e ::= e OP_PIPE t",
+ /*   4 */ "e ::= t",
+ /*   5 */ "t ::= t OP_CONCAT f",
+ /*   6 */ "t ::= f",
+ /*   7 */ "f ::= TK_LEFT_PAR e TK_RIGHT_PAR kleene_optional",
+ /*   8 */ "f ::= r kleene_optional",
+ /*   9 */ "kleene_optional ::= OP_KLEENE",
+ /*  10 */ "kleene_optional ::=",
+ /*  11 */ "r ::= LIT_INT",
+ /*  12 */ "r ::= LIT_LETTER",
+ /*  13 */ "r ::= LIT_STRING",
 };
 #endif /* NDEBUG */
 
@@ -667,17 +680,20 @@ static const struct {
   YYCODETYPE lhs;         /* Symbol on the left-hand side of the rule */
   unsigned char nrhs;     /* Number of right-hand side symbols in the rule */
 } yyRuleInfo[] = {
+  { 17, 1 },
+  { 15, 3 },
+  { 15, 1 },
+  { 11, 3 },
+  { 11, 1 },
+  { 12, 3 },
+  { 12, 1 },
+  { 13, 4 },
+  { 13, 2 },
+  { 16, 1 },
+  { 16, 0 },
   { 14, 1 },
-  { 9, 3 },
-  { 9, 1 },
-  { 10, 3 },
-  { 10, 1 },
-  { 11, 4 },
-  { 11, 2 },
-  { 13, 1 },
-  { 13, 0 },
-  { 12, 1 },
-  { 12, 1 },
+  { 14, 1 },
+  { 14, 1 },
 };
 
 static void yy_accept(yyParser*);  /* Forward Declaration */
@@ -741,57 +757,70 @@ static void yy_reduce(
   */
 /********** Begin reduce actions **********************************************/
         YYMINORTYPE yylhsminor;
-      case 0: /* input ::= e */
-#line 30 "Lemon/grammar.y"
-{ printf("reverse: %s\n", yymsp[0].minor.yy22->c_str()); delete yymsp[0].minor.yy22; }
-#line 748 "expression_parser.cpp"
+      case 0: /* input ::= list */
+#line 36 "Lemon/grammar.y"
+{ printf("%s\n", yymsp[0].minor.yy34->c_str()); }
+#line 764 "expression_parser.cpp"
         break;
-      case 1: /* e ::= e OP_PIPE t */
-#line 32 "Lemon/grammar.y"
-{ yylhsminor.yy22 = new string(*yymsp[-2].minor.yy22 + "+" + *yymsp[0].minor.yy22); delete yymsp[-2].minor.yy22;delete yymsp[0].minor.yy22;}
-#line 753 "expression_parser.cpp"
-  yymsp[-2].minor.yy22 = yylhsminor.yy22;
-        break;
-      case 2: /* e ::= t */
-      case 4: /* t ::= f */ yytestcase(yyruleno==4);
-#line 33 "Lemon/grammar.y"
-{ yylhsminor.yy22 = yymsp[0].minor.yy22; }
-#line 760 "expression_parser.cpp"
-  yymsp[0].minor.yy22 = yylhsminor.yy22;
-        break;
-      case 3: /* t ::= t OP_CONCAT f */
-#line 35 "Lemon/grammar.y"
-{ yylhsminor.yy22 = new string( *yymsp[0].minor.yy22 + "." + *yymsp[-2].minor.yy22); delete yymsp[0].minor.yy22;delete yymsp[-2].minor.yy22;}
-#line 766 "expression_parser.cpp"
-  yymsp[-2].minor.yy22 = yylhsminor.yy22;
-        break;
-      case 5: /* f ::= TK_LEFT_PAR e TK_RIGHT_PAR kleene_optional */
+      case 1: /* list ::= list e TK_EOL */
 #line 38 "Lemon/grammar.y"
-{ yymsp[-3].minor.yy22 = new string("("+ *yymsp[-2].minor.yy22 +")"+ *yymsp[0].minor.yy22); delete yymsp[-2].minor.yy22;delete yymsp[0].minor.yy22; }
-#line 772 "expression_parser.cpp"
+{ yylhsminor.yy34 = new string((*yymsp[-2].minor.yy34)+"\n"+ (*yymsp[-1].minor.yy34)); delete yymsp[-1].minor.yy34; }
+#line 769 "expression_parser.cpp"
+  yymsp[-2].minor.yy34 = yylhsminor.yy34;
         break;
-      case 6: /* f ::= r kleene_optional */
+      case 2: /* list ::= e */
+      case 4: /* e ::= t */ yytestcase(yyruleno==4);
+      case 6: /* t ::= f */ yytestcase(yyruleno==6);
 #line 39 "Lemon/grammar.y"
-{ yylhsminor.yy22 = new string(*yymsp[-1].minor.yy22 + *yymsp[0].minor.yy22); delete yymsp[-1].minor.yy22;delete yymsp[0].minor.yy22; }
+{ yylhsminor.yy34 = yymsp[0].minor.yy34; }
 #line 777 "expression_parser.cpp"
-  yymsp[-1].minor.yy22 = yylhsminor.yy22;
+  yymsp[0].minor.yy34 = yylhsminor.yy34;
         break;
-      case 7: /* kleene_optional ::= OP_KLEENE */
+      case 3: /* e ::= e OP_PIPE t */
 #line 41 "Lemon/grammar.y"
-{ yymsp[0].minor.yy22 = new string("*"); }
+{ yylhsminor.yy34 = new string(*yymsp[-2].minor.yy34 + "+" + *yymsp[0].minor.yy34); delete yymsp[-2].minor.yy34;delete yymsp[0].minor.yy34;}
 #line 783 "expression_parser.cpp"
+  yymsp[-2].minor.yy34 = yylhsminor.yy34;
         break;
-      case 8: /* kleene_optional ::= */
-#line 42 "Lemon/grammar.y"
-{ yymsp[1].minor.yy22 = new string(); }
-#line 788 "expression_parser.cpp"
-        break;
-      case 9: /* r ::= LIT_INT */
-      case 10: /* r ::= LIT_LETTER */ yytestcase(yyruleno==10);
+      case 5: /* t ::= t OP_CONCAT f */
 #line 44 "Lemon/grammar.y"
-{ yylhsminor.yy22 = yymsp[0].minor.yy0; }
-#line 794 "expression_parser.cpp"
-  yymsp[0].minor.yy22 = yylhsminor.yy22;
+{ yylhsminor.yy34 = new string( *yymsp[0].minor.yy34 + "." + *yymsp[-2].minor.yy34); delete yymsp[0].minor.yy34;delete yymsp[-2].minor.yy34;}
+#line 789 "expression_parser.cpp"
+  yymsp[-2].minor.yy34 = yylhsminor.yy34;
+        break;
+      case 7: /* f ::= TK_LEFT_PAR e TK_RIGHT_PAR kleene_optional */
+#line 47 "Lemon/grammar.y"
+{ yymsp[-3].minor.yy34 = new string("("+ *yymsp[-2].minor.yy34 +")"+ *yymsp[0].minor.yy34); delete yymsp[-2].minor.yy34;delete yymsp[0].minor.yy34; }
+#line 795 "expression_parser.cpp"
+        break;
+      case 8: /* f ::= r kleene_optional */
+#line 48 "Lemon/grammar.y"
+{ yylhsminor.yy34 = new string(*yymsp[-1].minor.yy34 + *yymsp[0].minor.yy34); delete yymsp[-1].minor.yy34;delete yymsp[0].minor.yy34; }
+#line 800 "expression_parser.cpp"
+  yymsp[-1].minor.yy34 = yylhsminor.yy34;
+        break;
+      case 9: /* kleene_optional ::= OP_KLEENE */
+#line 50 "Lemon/grammar.y"
+{ yymsp[0].minor.yy34 = new string("*"); }
+#line 806 "expression_parser.cpp"
+        break;
+      case 10: /* kleene_optional ::= */
+#line 51 "Lemon/grammar.y"
+{ yymsp[1].minor.yy34 = new string(); }
+#line 811 "expression_parser.cpp"
+        break;
+      case 11: /* r ::= LIT_INT */
+      case 12: /* r ::= LIT_LETTER */ yytestcase(yyruleno==12);
+#line 53 "Lemon/grammar.y"
+{ yylhsminor.yy34 = yymsp[0].minor.yy0; }
+#line 817 "expression_parser.cpp"
+  yymsp[0].minor.yy34 = yylhsminor.yy34;
+        break;
+      case 13: /* r ::= LIT_STRING */
+#line 55 "Lemon/grammar.y"
+{ reverse_string(yymsp[0].minor.yy0);  yylhsminor.yy34 = yymsp[0].minor.yy0; }
+#line 823 "expression_parser.cpp"
+  yymsp[0].minor.yy34 = yylhsminor.yy34;
         break;
       default:
         break;
@@ -848,10 +877,10 @@ static void yy_syntax_error(
   ParseARG_FETCH;
 #define TOKEN yyminor
 /************ Begin %syntax_error code ****************************************/
-#line 16 "Lemon/grammar.y"
+#line 21 "Lemon/grammar.y"
 
   printf("Syntax error at line %d \n", yylineno);
-#line 855 "expression_parser.cpp"
+#line 884 "expression_parser.cpp"
 /************ End %syntax_error code ******************************************/
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
@@ -872,10 +901,10 @@ static void yy_accept(
   /* Here code is inserted which will be executed whenever the
   ** parser accepts */
 /*********** Begin %parse_accept code *****************************************/
-#line 13 "Lemon/grammar.y"
+#line 18 "Lemon/grammar.y"
 
   printf("parsing complete!\n");
-#line 879 "expression_parser.cpp"
+#line 908 "expression_parser.cpp"
 /*********** End %parse_accept code *******************************************/
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }

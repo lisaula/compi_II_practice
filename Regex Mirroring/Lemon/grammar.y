@@ -4,10 +4,15 @@
   #include<iostream>
   #include<stdlib.h>
   #include<string>
-
+  #include<algorithm>
+  #include<vector>
   using namespace std;
 
   extern int yylineno;
+
+  void reverse_string(string* str){
+    reverse(str->begin(), str->end());
+  }
 }
 
 %parse_accept {
@@ -23,11 +28,15 @@
 %type t { string* }
 %type f { string* }
 %type r { string* }
+%type list { string* }
 %type kleene_optional { string* }
 
 %start_symbol input
 
-input ::= e(S1) . { printf("reverse: %s\n", S1->c_str()); delete S1; }
+input ::= list(L) . { printf("%s\n", L->c_str()); }
+
+list(L) ::= list(l) e(S1) TK_EOL . { L = new string((*l)+"\n"+ (*S1)); delete S1; }
+list(L) ::= e(S1) . { L = S1; }
 
 e(SS) ::= e(S1) OP_PIPE t(S3) . { SS = new string(*S1 + "+" + *S3); delete S1;delete S3;}
 e(SS) ::= t(S1) . { SS = S1; }
@@ -43,3 +52,4 @@ kleene_optional(SS) ::= . { SS = new string(); }
 
 r(SS) ::= LIT_INT(S1) . { SS = S1; }
 r(SS) ::= LIT_LETTER(S1) . { SS = S1; }
+r(SS) ::= LIT_STRING(S1) . { reverse_string(S1);  SS = S1; }
