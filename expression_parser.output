@@ -1,0 +1,268 @@
+Terminals unused in grammar
+
+   TK_EOF
+   TK_ERROR
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: E
+
+    2 E: E "+" T
+    3  | T
+
+    4 T: T "." F
+    5  | F
+
+    6 F: "(" E ")" Kleene_optional
+    7  | R Kleene_optional
+
+    8 Kleene_optional: "*"
+    9                | %empty
+
+   10 R: LIT_INT
+   11  | LIT_LETTER
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+LIT_INT (258) 10
+LIT_LETTER (259) 11
+TK_EOF (260)
+TK_ERROR (261)
+"+" (262) 2
+"*" (263) 8
+"." (264) 4
+"(" (265) 6
+")" (266) 6
+
+
+Nonterminals, with rules where they appear
+
+$accept (12)
+    on left: 0
+input (13)
+    on left: 1, on right: 0
+E (14)
+    on left: 2 3, on right: 1 2 6
+T (15)
+    on left: 4 5, on right: 2 3 4
+F (16)
+    on left: 6 7, on right: 4 5
+Kleene_optional (17)
+    on left: 8 9, on right: 6 7
+R (18)
+    on left: 10 11, on right: 7
+
+
+State 0
+
+    0 $accept: . input $end
+    1 input: . E
+    2 E: . E "+" T
+    3  | . T
+    4 T: . T "." F
+    5  | . F
+    6 F: . "(" E ")" Kleene_optional
+    7  | . R Kleene_optional
+   10 R: . LIT_INT
+   11  | . LIT_LETTER
+
+    LIT_INT     shift, and go to state 1
+    LIT_LETTER  shift, and go to state 2
+    "("         shift, and go to state 3
+
+    input  go to state 4
+    E      go to state 5
+    T      go to state 6
+    F      go to state 7
+    R      go to state 8
+
+
+State 1
+
+   10 R: LIT_INT .
+
+    $default  reduce using rule 10 (R)
+
+
+State 2
+
+   11 R: LIT_LETTER .
+
+    $default  reduce using rule 11 (R)
+
+
+State 3
+
+    2 E: . E "+" T
+    3  | . T
+    4 T: . T "." F
+    5  | . F
+    6 F: . "(" E ")" Kleene_optional
+    6  | "(" . E ")" Kleene_optional
+    7  | . R Kleene_optional
+   10 R: . LIT_INT
+   11  | . LIT_LETTER
+
+    LIT_INT     shift, and go to state 1
+    LIT_LETTER  shift, and go to state 2
+    "("         shift, and go to state 3
+
+    E  go to state 9
+    T  go to state 6
+    F  go to state 7
+    R  go to state 8
+
+
+State 4
+
+    0 $accept: input . $end
+
+    $end  shift, and go to state 10
+
+
+State 5
+
+    1 input: E .  [$end]
+    2 E: E . "+" T
+
+    "+"  shift, and go to state 11
+
+    $default  reduce using rule 1 (input)
+
+
+State 6
+
+    3 E: T .  [$end, "+", ")"]
+    4 T: T . "." F
+
+    "."  shift, and go to state 12
+
+    $default  reduce using rule 3 (E)
+
+
+State 7
+
+    5 T: F .
+
+    $default  reduce using rule 5 (T)
+
+
+State 8
+
+    7 F: R . Kleene_optional
+    8 Kleene_optional: . "*"
+    9                | . %empty  [$end, "+", ".", ")"]
+
+    "*"  shift, and go to state 13
+
+    $default  reduce using rule 9 (Kleene_optional)
+
+    Kleene_optional  go to state 14
+
+
+State 9
+
+    2 E: E . "+" T
+    6 F: "(" E . ")" Kleene_optional
+
+    "+"  shift, and go to state 11
+    ")"  shift, and go to state 15
+
+
+State 10
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+State 11
+
+    2 E: E "+" . T
+    4 T: . T "." F
+    5  | . F
+    6 F: . "(" E ")" Kleene_optional
+    7  | . R Kleene_optional
+   10 R: . LIT_INT
+   11  | . LIT_LETTER
+
+    LIT_INT     shift, and go to state 1
+    LIT_LETTER  shift, and go to state 2
+    "("         shift, and go to state 3
+
+    T  go to state 16
+    F  go to state 7
+    R  go to state 8
+
+
+State 12
+
+    4 T: T "." . F
+    6 F: . "(" E ")" Kleene_optional
+    7  | . R Kleene_optional
+   10 R: . LIT_INT
+   11  | . LIT_LETTER
+
+    LIT_INT     shift, and go to state 1
+    LIT_LETTER  shift, and go to state 2
+    "("         shift, and go to state 3
+
+    F  go to state 17
+    R  go to state 8
+
+
+State 13
+
+    8 Kleene_optional: "*" .
+
+    $default  reduce using rule 8 (Kleene_optional)
+
+
+State 14
+
+    7 F: R Kleene_optional .
+
+    $default  reduce using rule 7 (F)
+
+
+State 15
+
+    6 F: "(" E ")" . Kleene_optional
+    8 Kleene_optional: . "*"
+    9                | . %empty  [$end, "+", ".", ")"]
+
+    "*"  shift, and go to state 13
+
+    $default  reduce using rule 9 (Kleene_optional)
+
+    Kleene_optional  go to state 18
+
+
+State 16
+
+    2 E: E "+" T .  [$end, "+", ")"]
+    4 T: T . "." F
+
+    "."  shift, and go to state 12
+
+    $default  reduce using rule 2 (E)
+
+
+State 17
+
+    4 T: T "." F .
+
+    $default  reduce using rule 4 (T)
+
+
+State 18
+
+    6 F: "(" E ")" Kleene_optional .
+
+    $default  reduce using rule 6 (F)
