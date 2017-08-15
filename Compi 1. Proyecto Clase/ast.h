@@ -1,6 +1,22 @@
 #ifndef _AST_H
 #define _AST_H
 
+#include<map>
+#include<string>
+
+using namespace std;
+
+#define DEFINE_EXPR_CLASS(name) \
+  class name##Expression : public Expression { \
+  public: \
+    name##Expression(Expression* val1,Expression* val2){ \
+      this->val1 = val1; \
+      this->val2 = val2; \
+    }\
+    int eval(); \
+    Expression *val1, *val2; \
+  }
+
 class Statement {
     public:
         Statement() {}
@@ -12,50 +28,10 @@ class Expression {
         Expression(){}
         virtual int eval() = 0;
 };
-
-class AddExpression : public Expression {
-    public:
-        AddExpression(int val1, int val2){
-            this->val1 =  val1;
-            this->val2 = val2;
-        }
-
-        int val1, val2;
-        int eval();
-};
-
-class SubExpression : public Expression {
-    public:
-        SubExpression(int val1, int val2){
-            this->val1 =  val1;
-            this->val2 = val2;
-        }
-
-        int val1, val2;
-        int eval();
-};
-
-class DivExpression : public Expression {
-    public:
-        DivExpression(int val1, int val2){
-            this->val1 =  val1;
-            this->val2 = val2;
-        }
-
-        int val1, val2;
-        int eval();
-};
-
-class MultExpression : public Expression {
-    public:
-        MultExpression(int val1, int val2){
-            this->val1 =  val1;
-            this->val2 = val2;
-        }
-
-        int val1, val2;
-        int eval();
-};
+DEFINE_EXPR_CLASS(Add);
+DEFINE_EXPR_CLASS(Sub);
+DEFINE_EXPR_CLASS(Div);
+DEFINE_EXPR_CLASS(Mult);
 
 class VarExpression : public Expression {
     public:
@@ -77,7 +53,7 @@ class AssignStatement : public Statement {
         char *name;
         Expression * expr;
 
-        int eval();
+        void exec();
 };
 
 class PrintStatement : public Statement {

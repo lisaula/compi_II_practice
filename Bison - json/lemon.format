@@ -1,0 +1,30 @@
+
+grammar en todo el archivo
+
+%include {
+#include<assert.h>
+
+}
+
+%token_type { type }
+%default_type { type }  // setea el tipe de los no-terminales
+
+%name name
+
+%type no_terminal { type }
+
+
+%syntax_error{
+
+}
+
+%start_symbol no_terminal_produccion
+
+no_terminal ::= TERMINAL . { c code }
+
+
+./lemon -oname -dtokens.h -Tlempar.c src_file
+
+void* ParseAlloc( void*(*allocProc)(size_t) );
+void* Parse(void*, int, token_type);
+void* ParseFree( void* ,void(*free)(void*) )

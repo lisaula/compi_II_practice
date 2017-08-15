@@ -1,7 +1,7 @@
 TARGET = sample
 LEXER_SRC = lexer.cpp
 GRAMMAR_SRC = grammar.cpp
-SRCFILES = $(GRAMMAR_SRC) $(LEXER_SRC) main.cpp
+SRCFILES = $(GRAMMAR_SRC) $(LEXER_SRC) main.cpp ast.cpp
 OBJECT_FILES = ${SRCFILES:.cpp = .o}
 
 $(TARGET): $(OBJECT_FILES)

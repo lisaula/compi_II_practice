@@ -1,0 +1,30 @@
+// comment 1
+/*
+  comentario de linea
+  var0 = 1
+  print var0
+*/
+var3 = 100
+print (10+5+3)
+#include "input2.txt"
+// comment 2
+var0 = 10
+var5 = 15
+var1 = (var0 + var5) *3
+print var0, DEC
+print var0, HEX
+print var0, BIN
+print var5
+if(var0 != 20)
+  if(var0 == 20)
+    var0 = 24
+  else
+    var0 = 25
+print var0, DEC
+
+function suma(uno , dos)
+{
+  return uno + dos
+}
+
+nueva(1+5, 10+3)

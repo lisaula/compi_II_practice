@@ -1,0 +1,22 @@
+%option noyywrap
+%option yylineno
+
+%x state_name
+
+
+%{
+#includes tokens
+%}
+
+%%
+regex { c code}
+
+<state_name>OP-regex { c code }
+BEGIN(INITIAL) para moverse de estados
+%%
+
+YYCREATE_BUFFER (FILE*)
+YYSWITCH_BUFFER
+
+//command
+  flex -o name src_file

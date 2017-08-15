@@ -1,0 +1,8 @@
+hola1 = 10
+count  = 0
+while(hola1 < 15)
+{
+  print hola1
+  hola1 = hola1 + count
+  count = count + 1
+}

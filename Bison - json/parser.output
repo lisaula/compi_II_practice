@@ -1,0 +1,148 @@
+Terminals unused in grammar
+
+   TK_LEFT_BRACKET
+   TK_RIGHT_BRACKET
+   TK_ERROR
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: TK_LEFT_BRACE options_list TK_RIGHT_BRACE
+
+    2 options_list: options_list OP_COMMA options
+    3             | options
+
+    4 options: TK_ID OP_COLON TK_ID
+    5        | TK_ID OP_COLON TK_NUMBER
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+TK_ID (258) 4 5
+TK_NUMBER (259) 5
+TK_LEFT_BRACE (260) 1
+TK_RIGHT_BRACE (261) 1
+TK_LEFT_BRACKET (262)
+TK_RIGHT_BRACKET (263)
+OP_COMMA (264) 2
+OP_COLON (265) 4 5
+TK_ERROR (266)
+
+
+Nonterminals, with rules where they appear
+
+$accept (12)
+    on left: 0
+input (13)
+    on left: 1, on right: 0
+options_list (14)
+    on left: 2 3, on right: 1 2
+options (15)
+    on left: 4 5, on right: 2 3
+
+
+State 0
+
+    0 $accept: . input $end
+
+    TK_LEFT_BRACE  shift, and go to state 1
+
+    input  go to state 2
+
+
+State 1
+
+    1 input: TK_LEFT_BRACE . options_list TK_RIGHT_BRACE
+
+    TK_ID  shift, and go to state 3
+
+    options_list  go to state 4
+    options       go to state 5
+
+
+State 2
+
+    0 $accept: input . $end
+
+    $end  shift, and go to state 6
+
+
+State 3
+
+    4 options: TK_ID . OP_COLON TK_ID
+    5        | TK_ID . OP_COLON TK_NUMBER
+
+    OP_COLON  shift, and go to state 7
+
+
+State 4
+
+    1 input: TK_LEFT_BRACE options_list . TK_RIGHT_BRACE
+    2 options_list: options_list . OP_COMMA options
+
+    TK_RIGHT_BRACE  shift, and go to state 8
+    OP_COMMA        shift, and go to state 9
+
+
+State 5
+
+    3 options_list: options .
+
+    $default  reduce using rule 3 (options_list)
+
+
+State 6
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+State 7
+
+    4 options: TK_ID OP_COLON . TK_ID
+    5        | TK_ID OP_COLON . TK_NUMBER
+
+    TK_ID      shift, and go to state 10
+    TK_NUMBER  shift, and go to state 11
+
+
+State 8
+
+    1 input: TK_LEFT_BRACE options_list TK_RIGHT_BRACE .
+
+    $default  reduce using rule 1 (input)
+
+
+State 9
+
+    2 options_list: options_list OP_COMMA . options
+
+    TK_ID  shift, and go to state 3
+
+    options  go to state 12
+
+
+State 10
+
+    4 options: TK_ID OP_COLON TK_ID .
+
+    $default  reduce using rule 4 (options)
+
+
+State 11
+
+    5 options: TK_ID OP_COLON TK_NUMBER .
+
+    $default  reduce using rule 5 (options)
+
+
+State 12
+
+    2 options_list: options_list OP_COMMA options .
+
+    $default  reduce using rule 2 (options_list)

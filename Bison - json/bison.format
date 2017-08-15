@@ -1,0 +1,30 @@
+
+%code_requires {
+  #include "archivo.extension"
+}
+
+%{
+
+int yylex();
+
+void yyerror(const char* msg){
+
+}
+#define YYERROR_VERBOSE 1
+
+#define YYDEBUG 1
+%}
+
+%glr-parser
+
+%union { statement* name_t }
+
+%type<type> no_terminal
+
+%type<statement> no_terminal
+
+%token<type> token_name
+
+%%
+
+bison -rall -o name --defines=tokens.h src_file
