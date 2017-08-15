@@ -1,193 +1,536 @@
 Terminals unused in grammar
 
-   TK_EOL
-   TK_ASSIGN
    TK_ACCESSOR
    TK_OPEN_PAR
    TK_CLOSE_PAR
-   KW_PRINT
    KW_IF
-   KW_STRUCT
-   KW_END
-   TK_ID
    TK_ERROR
 
 
 Grammar
 
-    0 $accept: E $end
+    0 $accept: code $end
 
-    1 E: E "+" T
-    2  | E "-" T
-    3  | T
+    1 code: statement_list
 
-    4 T: T "*" F
-    5  | T "/" F
-    6  | F
+    2 statement_list: statement_list statement
+    3               | statement
 
-    7 F: TK_LIT_NUM
+    4 statement: assign_statement
+    5          | print_statement
+    6          | struct_declaration
+    7          | variable_declaration
+    8          | read_statement
+
+    9 assign_statement: TK_ID "=" E ";"
+
+   10 print_statement: KW_PRINT E ";"
+
+   11 struct_declaration: KW_STRUCT TK_ID struct_attribute_list KW_END
+
+   12 struct_attribute_list: struct_attribute_list variable_declaration
+   13                      | variable_declaration
+
+   14 variable_declaration: KW_DECLARE type TK_ID ";"
+
+   15 type: KW_CHAR
+   16     | KW_BOOL
+   17     | KW_INT
+
+   18 print_statement: KW_PRINT TK_ID ";"
+
+   19 read_statement: KW_READ TK_ID ";"
+
+   20 E: E "+" T
+   21  | E "-" T
+   22  | T
+
+   23 T: T "*" F
+   24  | T "/" F
+   25  | F
+
+   26 F: TK_LIT_NUM
+   27  | TK_LIT_BOOL
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-TK_EOL (258)
-TK_ASSIGN (259)
+";" (258) 9 10 14 18 19
+"=" (259) 9
 TK_ACCESSOR (260)
-"+" (261) 1
-"-" (262) 2
-"*" (263) 4
-"/" (264) 5
+"+" (261) 20
+"-" (262) 21
+"*" (263) 23
+"/" (264) 24
 TK_OPEN_PAR (265)
 TK_CLOSE_PAR (266)
-KW_PRINT (267)
-KW_IF (268)
-KW_STRUCT (269)
-KW_END (270)
-TK_LIT_NUM (271) 7
-TK_ID (272)
-TK_ERROR (273)
+KW_BOOL (267) 16
+TK_LIT_BOOL (268) 27
+KW_CHAR (269) 15
+KW_INT (270) 17
+KW_PRINT (271) 10 18
+KW_READ (272) 19
+KW_DECLARE (273) 14
+KW_IF (274)
+KW_STRUCT (275) 11
+KW_END (276) 11
+TK_LIT_NUM (277) 26
+TK_ID (278) 9 11 14 18 19
+TK_ERROR (279)
 
 
 Nonterminals, with rules where they appear
 
-$accept (19)
+$accept (25)
     on left: 0
-E (20)
-    on left: 1 2 3, on right: 0 1 2
-T (21)
-    on left: 4 5 6, on right: 1 2 3 4 5
-F (22)
-    on left: 7, on right: 4 5 6
+code (26)
+    on left: 1, on right: 0
+statement_list (27)
+    on left: 2 3, on right: 1 2
+statement (28)
+    on left: 4 5 6 7 8, on right: 2 3
+assign_statement (29)
+    on left: 9, on right: 4
+print_statement (30)
+    on left: 10 18, on right: 5
+struct_declaration (31)
+    on left: 11, on right: 6
+struct_attribute_list (32)
+    on left: 12 13, on right: 11 12
+variable_declaration (33)
+    on left: 14, on right: 7 12 13
+type (34)
+    on left: 15 16 17, on right: 14
+read_statement (35)
+    on left: 19, on right: 8
+E (36)
+    on left: 20 21 22, on right: 9 10 20 21
+T (37)
+    on left: 23 24 25, on right: 20 21 22 23 24
+F (38)
+    on left: 26 27, on right: 23 24 25
 
 
 State 0
 
-    0 $accept: . E $end
+    0 $accept: . code $end
 
-    TK_LIT_NUM  shift, and go to state 1
+    KW_PRINT    shift, and go to state 1
+    KW_READ     shift, and go to state 2
+    KW_DECLARE  shift, and go to state 3
+    KW_STRUCT   shift, and go to state 4
+    TK_ID       shift, and go to state 5
 
-    E  go to state 2
-    T  go to state 3
-    F  go to state 4
+    code                  go to state 6
+    statement_list        go to state 7
+    statement             go to state 8
+    assign_statement      go to state 9
+    print_statement       go to state 10
+    struct_declaration    go to state 11
+    variable_declaration  go to state 12
+    read_statement        go to state 13
 
 
 State 1
 
-    7 F: TK_LIT_NUM .
+   10 print_statement: KW_PRINT . E ";"
+   18                | KW_PRINT . TK_ID ";"
 
-    $default  reduce using rule 7 (F)
+    TK_LIT_BOOL  shift, and go to state 14
+    TK_LIT_NUM   shift, and go to state 15
+    TK_ID        shift, and go to state 16
+
+    E  go to state 17
+    T  go to state 18
+    F  go to state 19
 
 
 State 2
 
-    0 $accept: E . $end
-    1 E: E . "+" T
-    2  | E . "-" T
+   19 read_statement: KW_READ . TK_ID ";"
 
-    $end  shift, and go to state 5
-    "+"   shift, and go to state 6
-    "-"   shift, and go to state 7
+    TK_ID  shift, and go to state 20
 
 
 State 3
 
-    3 E: T .
-    4 T: T . "*" F
-    5  | T . "/" F
+   14 variable_declaration: KW_DECLARE . type TK_ID ";"
 
-    "*"  shift, and go to state 8
-    "/"  shift, and go to state 9
+    KW_BOOL  shift, and go to state 21
+    KW_CHAR  shift, and go to state 22
+    KW_INT   shift, and go to state 23
 
-    $default  reduce using rule 3 (E)
+    type  go to state 24
 
 
 State 4
 
-    6 T: F .
+   11 struct_declaration: KW_STRUCT . TK_ID struct_attribute_list KW_END
 
-    $default  reduce using rule 6 (T)
+    TK_ID  shift, and go to state 25
 
 
 State 5
 
-    0 $accept: E $end .
+    9 assign_statement: TK_ID . "=" E ";"
 
-    $default  accept
+    "="  shift, and go to state 26
 
 
 State 6
 
-    1 E: E "+" . T
+    0 $accept: code . $end
 
-    TK_LIT_NUM  shift, and go to state 1
-
-    T  go to state 10
-    F  go to state 4
+    $end  shift, and go to state 27
 
 
 State 7
 
-    2 E: E "-" . T
+    1 code: statement_list .
+    2 statement_list: statement_list . statement
 
-    TK_LIT_NUM  shift, and go to state 1
+    KW_PRINT    shift, and go to state 1
+    KW_READ     shift, and go to state 2
+    KW_DECLARE  shift, and go to state 3
+    KW_STRUCT   shift, and go to state 4
+    TK_ID       shift, and go to state 5
 
-    T  go to state 11
-    F  go to state 4
+    $default  reduce using rule 1 (code)
+
+    statement             go to state 28
+    assign_statement      go to state 9
+    print_statement       go to state 10
+    struct_declaration    go to state 11
+    variable_declaration  go to state 12
+    read_statement        go to state 13
 
 
 State 8
 
-    4 T: T "*" . F
+    3 statement_list: statement .
 
-    TK_LIT_NUM  shift, and go to state 1
-
-    F  go to state 12
+    $default  reduce using rule 3 (statement_list)
 
 
 State 9
 
-    5 T: T "/" . F
+    4 statement: assign_statement .
 
-    TK_LIT_NUM  shift, and go to state 1
-
-    F  go to state 13
+    $default  reduce using rule 4 (statement)
 
 
 State 10
 
-    1 E: E "+" T .
-    4 T: T . "*" F
-    5  | T . "/" F
+    5 statement: print_statement .
 
-    "*"  shift, and go to state 8
-    "/"  shift, and go to state 9
-
-    $default  reduce using rule 1 (E)
+    $default  reduce using rule 5 (statement)
 
 
 State 11
 
-    2 E: E "-" T .
-    4 T: T . "*" F
-    5  | T . "/" F
+    6 statement: struct_declaration .
 
-    "*"  shift, and go to state 8
-    "/"  shift, and go to state 9
-
-    $default  reduce using rule 2 (E)
+    $default  reduce using rule 6 (statement)
 
 
 State 12
 
-    4 T: T "*" F .
+    7 statement: variable_declaration .
 
-    $default  reduce using rule 4 (T)
+    $default  reduce using rule 7 (statement)
 
 
 State 13
 
-    5 T: T "/" F .
+    8 statement: read_statement .
 
-    $default  reduce using rule 5 (T)
+    $default  reduce using rule 8 (statement)
+
+
+State 14
+
+   27 F: TK_LIT_BOOL .
+
+    $default  reduce using rule 27 (F)
+
+
+State 15
+
+   26 F: TK_LIT_NUM .
+
+    $default  reduce using rule 26 (F)
+
+
+State 16
+
+   18 print_statement: KW_PRINT TK_ID . ";"
+
+    ";"  shift, and go to state 29
+
+
+State 17
+
+   10 print_statement: KW_PRINT E . ";"
+   20 E: E . "+" T
+   21  | E . "-" T
+
+    ";"  shift, and go to state 30
+    "+"  shift, and go to state 31
+    "-"  shift, and go to state 32
+
+
+State 18
+
+   22 E: T .
+   23 T: T . "*" F
+   24  | T . "/" F
+
+    "*"  shift, and go to state 33
+    "/"  shift, and go to state 34
+
+    $default  reduce using rule 22 (E)
+
+
+State 19
+
+   25 T: F .
+
+    $default  reduce using rule 25 (T)
+
+
+State 20
+
+   19 read_statement: KW_READ TK_ID . ";"
+
+    ";"  shift, and go to state 35
+
+
+State 21
+
+   16 type: KW_BOOL .
+
+    $default  reduce using rule 16 (type)
+
+
+State 22
+
+   15 type: KW_CHAR .
+
+    $default  reduce using rule 15 (type)
+
+
+State 23
+
+   17 type: KW_INT .
+
+    $default  reduce using rule 17 (type)
+
+
+State 24
+
+   14 variable_declaration: KW_DECLARE type . TK_ID ";"
+
+    TK_ID  shift, and go to state 36
+
+
+State 25
+
+   11 struct_declaration: KW_STRUCT TK_ID . struct_attribute_list KW_END
+
+    KW_DECLARE  shift, and go to state 3
+
+    struct_attribute_list  go to state 37
+    variable_declaration   go to state 38
+
+
+State 26
+
+    9 assign_statement: TK_ID "=" . E ";"
+
+    TK_LIT_BOOL  shift, and go to state 14
+    TK_LIT_NUM   shift, and go to state 15
+
+    E  go to state 39
+    T  go to state 18
+    F  go to state 19
+
+
+State 27
+
+    0 $accept: code $end .
+
+    $default  accept
+
+
+State 28
+
+    2 statement_list: statement_list statement .
+
+    $default  reduce using rule 2 (statement_list)
+
+
+State 29
+
+   18 print_statement: KW_PRINT TK_ID ";" .
+
+    $default  reduce using rule 18 (print_statement)
+
+
+State 30
+
+   10 print_statement: KW_PRINT E ";" .
+
+    $default  reduce using rule 10 (print_statement)
+
+
+State 31
+
+   20 E: E "+" . T
+
+    TK_LIT_BOOL  shift, and go to state 14
+    TK_LIT_NUM   shift, and go to state 15
+
+    T  go to state 40
+    F  go to state 19
+
+
+State 32
+
+   21 E: E "-" . T
+
+    TK_LIT_BOOL  shift, and go to state 14
+    TK_LIT_NUM   shift, and go to state 15
+
+    T  go to state 41
+    F  go to state 19
+
+
+State 33
+
+   23 T: T "*" . F
+
+    TK_LIT_BOOL  shift, and go to state 14
+    TK_LIT_NUM   shift, and go to state 15
+
+    F  go to state 42
+
+
+State 34
+
+   24 T: T "/" . F
+
+    TK_LIT_BOOL  shift, and go to state 14
+    TK_LIT_NUM   shift, and go to state 15
+
+    F  go to state 43
+
+
+State 35
+
+   19 read_statement: KW_READ TK_ID ";" .
+
+    $default  reduce using rule 19 (read_statement)
+
+
+State 36
+
+   14 variable_declaration: KW_DECLARE type TK_ID . ";"
+
+    ";"  shift, and go to state 44
+
+
+State 37
+
+   11 struct_declaration: KW_STRUCT TK_ID struct_attribute_list . KW_END
+   12 struct_attribute_list: struct_attribute_list . variable_declaration
+
+    KW_DECLARE  shift, and go to state 3
+    KW_END      shift, and go to state 45
+
+    variable_declaration  go to state 46
+
+
+State 38
+
+   13 struct_attribute_list: variable_declaration .
+
+    $default  reduce using rule 13 (struct_attribute_list)
+
+
+State 39
+
+    9 assign_statement: TK_ID "=" E . ";"
+   20 E: E . "+" T
+   21  | E . "-" T
+
+    ";"  shift, and go to state 47
+    "+"  shift, and go to state 31
+    "-"  shift, and go to state 32
+
+
+State 40
+
+   20 E: E "+" T .
+   23 T: T . "*" F
+   24  | T . "/" F
+
+    "*"  shift, and go to state 33
+    "/"  shift, and go to state 34
+
+    $default  reduce using rule 20 (E)
+
+
+State 41
+
+   21 E: E "-" T .
+   23 T: T . "*" F
+   24  | T . "/" F
+
+    "*"  shift, and go to state 33
+    "/"  shift, and go to state 34
+
+    $default  reduce using rule 21 (E)
+
+
+State 42
+
+   23 T: T "*" F .
+
+    $default  reduce using rule 23 (T)
+
+
+State 43
+
+   24 T: T "/" F .
+
+    $default  reduce using rule 24 (T)
+
+
+State 44
+
+   14 variable_declaration: KW_DECLARE type TK_ID ";" .
+
+    $default  reduce using rule 14 (variable_declaration)
+
+
+State 45
+
+   11 struct_declaration: KW_STRUCT TK_ID struct_attribute_list KW_END .
+
+    $default  reduce using rule 11 (struct_declaration)
+
+
+State 46
+
+   12 struct_attribute_list: struct_attribute_list variable_declaration .
+
+    $default  reduce using rule 12 (struct_attribute_list)
+
+
+State 47
+
+    9 assign_statement: TK_ID "=" E ";" .
+
+    $default  reduce using rule 9 (assign_statement)

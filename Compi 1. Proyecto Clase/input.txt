@@ -1,2 +1,2 @@
-5 + 5 +
-9 - 3
+declare int var1;
+var1 = true;

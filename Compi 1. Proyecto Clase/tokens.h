@@ -45,7 +45,7 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    TK_EOL = 258,
+    TK_EOS = 258,
     TK_ASSIGN = 259,
     TK_ACCESSOR = 260,
     OP_ADD = 261,
@@ -54,19 +54,38 @@ extern int yydebug;
     OP_DIV = 264,
     TK_OPEN_PAR = 265,
     TK_CLOSE_PAR = 266,
-    KW_PRINT = 267,
-    KW_IF = 268,
-    KW_STRUCT = 269,
-    KW_END = 270,
-    TK_LIT_NUM = 271,
-    TK_ID = 272,
-    TK_ERROR = 273
+    KW_BOOL = 267,
+    TK_LIT_BOOL = 268,
+    KW_CHAR = 269,
+    KW_INT = 270,
+    KW_PRINT = 271,
+    KW_READ = 272,
+    KW_DECLARE = 273,
+    KW_IF = 274,
+    KW_STRUCT = 275,
+    KW_END = 276,
+    TK_LIT_NUM = 277,
+    TK_ID = 278,
+    TK_ERROR = 279
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 14 "grammar.y" /* yacc.c:1909  */
+
+  int int_t;
+  char char_t;
+  bool bool_t;
+  char *text;
+
+#line 86 "tokens.h" /* yacc.c:1909  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
