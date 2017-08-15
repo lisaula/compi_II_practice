@@ -1,0 +1,6 @@
+x = 1;
+decl int x;
+decl int x = 1;
+decl struct int64{
+    decl int size;
+};
