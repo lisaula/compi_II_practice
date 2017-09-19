@@ -205,24 +205,19 @@ public:
   void generate_code(mips_data_t *ret);
 };
 
+extern map<string,string>* local_vars;
+string find_var(string id) {
+  if(!local_vars)
+    return "";
+
+  return (*local_vars)[id];  
+}
+
 class Statement
 {
 public:
   virtual void exec() = 0;
   virtual void generate_code(mips_data_t *ret) = 0;
-  virtual void set_local_variables(map<string, string> *vars){
-    this->local_vars = vars;
-  }
-  string find_var(string id) {
-    if(!local_vars)
-      return "";
-
-    if((*local_vars)[id] != ""){
-      return (*local_vars)[id];
-    }
-    return "";
-  }
-  map<string,string>* local_vars;
 };
 
 class PrintStatement : public Statement
@@ -250,8 +245,6 @@ public:
   {
     this->expr = expr;
     this->identifier = *identifier;
-    // cout << "Assign: " << this->identifier << endl;
-    // printf("%p\n", identifier);
   }
 
   void exec();
@@ -273,11 +266,6 @@ public:
 
   void exec();
   void generate_code(mips_data_t *ret);
-  void set_local_variables(map<string, string>* vars){
-    Statement::set_local_variables(vars);
-    for(auto i = statementList.begin(); i != statementList.end(); i++)
-        (*i)->set_local_variables(vars);
-  }
 
   list<Statement *> statementList;
 };

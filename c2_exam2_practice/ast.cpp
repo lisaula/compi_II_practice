@@ -4,6 +4,7 @@ int vars[8];
 map<string, int> variables;
 map<string, FunctionDefinitionStatement*> funs;
 set<string> global_vars;
+map<string,string>* local_vars;
 map<string, string> global_strings;
 stack<string> temps;
 unsigned int next_label;
@@ -167,18 +168,17 @@ void FunctionDefinitionStatement::generate_code(mips_data_t *ret){
 
     code += pusha();
 
-    map<string, string> local_vars;
     int size_to_reserve = 0;
 
     int arg_counter = 0;
+    //local_vars = new std::map<string, value> map;
     for(auto it = parameters->begin(); it != parameters->end(); ++it)
     {
         auto param = *it;
-        local_vars[param] = to_string(arg_counter)+"($fp)";// "$a" + to_string(arg_counter++);
+        (*local_vars)[param] = to_string(arg_counter)+"($fp)";// "$a" + to_string(arg_counter++);
         arg_counter += 4;
     }
 
-    body->set_local_variables(&local_vars);
     body->generate_code(ret);
 
     code += ret->code+"\n";
