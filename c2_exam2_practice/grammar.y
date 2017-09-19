@@ -9,6 +9,7 @@
     int yylex();
     extern int yylineno;
     extern char* yy_filename;
+    Statement* ast;
 }
 
 %type stmt { Statement * }
@@ -41,17 +42,13 @@
 
 %name NxParser
 
-%parse_accept{
-    printf("parse complete!\n");
-}
-
 %syntax_error{
     printf("Error at: %d\n", yylineno);
 }
 
 %start_symbol input
 
-input ::= opt_eol statement_list(S) opt_eol .     { S->exec(); }
+input ::= opt_eol statement_list(S) opt_eol .     { ast = S; }
 
 opt_eol ::= TK_EOL .
 opt_eol ::= .

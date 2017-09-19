@@ -34,7 +34,8 @@
     int yylex();
     extern int yylineno;
     extern char* yy_filename;
-#line 38 "expression_parser.cpp"
+    Statement* ast;
+#line 39 "expression_parser.cpp"
 /**************** End of %include directives **********************************/
 /* These constants specify the various numeric values for terminal symbols
 ** in a format understandable to "makeheaders".  This section is blank unless
@@ -881,20 +882,20 @@ static void yy_reduce(
 /********** Begin reduce actions **********************************************/
         YYMINORTYPE yylhsminor;
       case 0: /* input ::= opt_eol statement_list opt_eol */
-#line 54 "grammar.y"
-{ yymsp[-1].minor.yy8->exec(); }
-#line 887 "expression_parser.cpp"
+#line 51 "grammar.y"
+{ ast = yymsp[-1].minor.yy8; }
+#line 888 "expression_parser.cpp"
         break;
       case 3: /* statement_list ::= statement_list TK_EOL stmt */
-#line 59 "grammar.y"
+#line 56 "grammar.y"
 { yylhsminor.yy8 = yymsp[-2].minor.yy8; ((BlockStatement *)yylhsminor.yy8)->addStatement(yymsp[0].minor.yy8); }
-#line 892 "expression_parser.cpp"
+#line 893 "expression_parser.cpp"
   yymsp[-2].minor.yy8 = yylhsminor.yy8;
         break;
       case 4: /* statement_list ::= stmt */
-#line 60 "grammar.y"
+#line 57 "grammar.y"
 { yylhsminor.yy8 = new BlockStatement; ((BlockStatement *)yylhsminor.yy8)->addStatement(yymsp[0].minor.yy8); }
-#line 898 "expression_parser.cpp"
+#line 899 "expression_parser.cpp"
   yymsp[0].minor.yy8 = yylhsminor.yy8;
         break;
       case 5: /* stmt ::= print */
@@ -905,217 +906,217 @@ static void yy_reduce(
       case 10: /* stmt ::= return_st */ yytestcase(yyruleno==10);
       case 11: /* stmt ::= function_call */ yytestcase(yyruleno==11);
       case 28: /* block_statement ::= stmt */ yytestcase(yyruleno==28);
-#line 62 "grammar.y"
+#line 59 "grammar.y"
 { yylhsminor.yy8 = yymsp[0].minor.yy8; }
-#line 911 "expression_parser.cpp"
+#line 912 "expression_parser.cpp"
   yymsp[0].minor.yy8 = yylhsminor.yy8;
         break;
       case 12: /* function_call ::= RW_CALL TK_ID TK_L_PAR opt_args TK_R_PAR */
-#line 70 "grammar.y"
+#line 67 "grammar.y"
 { yymsp[-4].minor.yy8 = new FunctionCallStatement(yymsp[-3].minor.yy0->str_value, yymsp[-1].minor.yy46); }
-#line 917 "expression_parser.cpp"
+#line 918 "expression_parser.cpp"
         break;
       case 13: /* opt_args ::= arg_list */
-#line 72 "grammar.y"
+#line 69 "grammar.y"
 { yylhsminor.yy46 = yymsp[0].minor.yy46; }
-#line 922 "expression_parser.cpp"
+#line 923 "expression_parser.cpp"
   yymsp[0].minor.yy46 = yylhsminor.yy46;
         break;
       case 14: /* opt_args ::= */
-#line 73 "grammar.y"
+#line 70 "grammar.y"
 { yymsp[1].minor.yy46 = new list<Expr*>(); }
-#line 928 "expression_parser.cpp"
+#line 929 "expression_parser.cpp"
         break;
       case 15: /* arg_list ::= arg_list TK_COMMA expr */
-#line 75 "grammar.y"
+#line 72 "grammar.y"
 { yylhsminor.yy46 = yymsp[-2].minor.yy46; yylhsminor.yy46->push_back(yymsp[0].minor.yy2); }
-#line 933 "expression_parser.cpp"
+#line 934 "expression_parser.cpp"
   yymsp[-2].minor.yy46 = yylhsminor.yy46;
         break;
       case 16: /* arg_list ::= expr */
-#line 76 "grammar.y"
+#line 73 "grammar.y"
 { yylhsminor.yy46 = new list<Expr*>(); yylhsminor.yy46->push_back(yymsp[0].minor.yy2); }
-#line 939 "expression_parser.cpp"
+#line 940 "expression_parser.cpp"
   yymsp[0].minor.yy46 = yylhsminor.yy46;
         break;
       case 17: /* return_st ::= RW_RETURN expr */
-#line 78 "grammar.y"
+#line 75 "grammar.y"
 { yymsp[-1].minor.yy8 = new ReturnStatement(yymsp[0].minor.yy2); }
-#line 945 "expression_parser.cpp"
+#line 946 "expression_parser.cpp"
         break;
       case 18: /* fn_def ::= RW_FN_DEF TK_ID TK_L_PAR opt_param_list TK_R_PAR block_statement */
-#line 80 "grammar.y"
+#line 77 "grammar.y"
 { yymsp[-5].minor.yy8 = new FunctionDefinitionStatement(yymsp[-4].minor.yy0->str_value,yymsp[-2].minor.yy48,yymsp[0].minor.yy8); delete yymsp[-4].minor.yy0->str_value; }
-#line 950 "expression_parser.cpp"
+#line 951 "expression_parser.cpp"
         break;
       case 19: /* opt_param_list ::= param_list */
-#line 82 "grammar.y"
+#line 79 "grammar.y"
 { yylhsminor.yy48 = yymsp[0].minor.yy48; }
-#line 955 "expression_parser.cpp"
+#line 956 "expression_parser.cpp"
   yymsp[0].minor.yy48 = yylhsminor.yy48;
         break;
       case 20: /* opt_param_list ::= */
-#line 83 "grammar.y"
+#line 80 "grammar.y"
 { yymsp[1].minor.yy48 = new list<string>(); }
-#line 961 "expression_parser.cpp"
+#line 962 "expression_parser.cpp"
         break;
       case 21: /* param_list ::= param_list TK_COMMA TK_ID */
-#line 85 "grammar.y"
+#line 82 "grammar.y"
 { yylhsminor.yy48 = yymsp[-2].minor.yy48; yylhsminor.yy48->push_back(*(yymsp[0].minor.yy0->str_value)); }
-#line 966 "expression_parser.cpp"
+#line 967 "expression_parser.cpp"
   yymsp[-2].minor.yy48 = yylhsminor.yy48;
         break;
       case 22: /* param_list ::= TK_ID */
-#line 86 "grammar.y"
+#line 83 "grammar.y"
 { yylhsminor.yy48 = new list<string>(); yylhsminor.yy48->push_back(*(yymsp[0].minor.yy0->str_value)); }
-#line 972 "expression_parser.cpp"
+#line 973 "expression_parser.cpp"
   yymsp[0].minor.yy48 = yylhsminor.yy48;
         break;
       case 23: /* if_stmt ::= TK_RW_IF TK_L_PAR conditional_expr TK_R_PAR TK_EOL block_statement opt_else */
-#line 88 "grammar.y"
+#line 85 "grammar.y"
 { yymsp[-6].minor.yy8 = new IfStatement(yymsp[-4].minor.yy2, yymsp[-1].minor.yy8, yymsp[0].minor.yy8); }
-#line 978 "expression_parser.cpp"
+#line 979 "expression_parser.cpp"
         break;
       case 24: /* opt_else ::= TK_RW_ELSE TK_EOL block_statement */
-#line 90 "grammar.y"
+#line 87 "grammar.y"
 { yymsp[-2].minor.yy8 = yymsp[0].minor.yy8; }
-#line 983 "expression_parser.cpp"
+#line 984 "expression_parser.cpp"
         break;
       case 25: /* opt_else ::= */
-#line 91 "grammar.y"
+#line 88 "grammar.y"
 { yymsp[1].minor.yy8 = NULL; }
-#line 988 "expression_parser.cpp"
+#line 989 "expression_parser.cpp"
         break;
       case 26: /* while_stmt ::= TK_RW_WHILE TK_L_PAR conditional_expr TK_R_PAR TK_EOL block_statement */
-#line 93 "grammar.y"
+#line 90 "grammar.y"
 { yymsp[-5].minor.yy8 = new WhileStatement(yymsp[-3].minor.yy2, yymsp[0].minor.yy8); }
-#line 993 "expression_parser.cpp"
+#line 994 "expression_parser.cpp"
         break;
       case 27: /* conditional_expr ::= expr compare_options expr */
-#line 95 "grammar.y"
+#line 92 "grammar.y"
 { yylhsminor.yy2 = yymsp[-1].minor.yy2; ((BinaryExpr*)yylhsminor.yy2)->expr1 = yymsp[-2].minor.yy2; ((BinaryExpr*)yylhsminor.yy2)->expr2 = yymsp[0].minor.yy2; }
-#line 998 "expression_parser.cpp"
+#line 999 "expression_parser.cpp"
   yymsp[-2].minor.yy2 = yylhsminor.yy2;
         break;
       case 29: /* block_statement ::= TK_L_BRACE TK_EOL statement_list TK_EOL TK_R_BRACE */
-#line 99 "grammar.y"
+#line 96 "grammar.y"
 { yymsp[-4].minor.yy8 = yymsp[-2].minor.yy8; }
-#line 1004 "expression_parser.cpp"
+#line 1005 "expression_parser.cpp"
         break;
       case 30: /* compare_options ::= TK_COMP_EQUAL */
-#line 101 "grammar.y"
+#line 98 "grammar.y"
 { yymsp[0].minor.yy2 = new EqualRelationalExpr(); }
-#line 1009 "expression_parser.cpp"
+#line 1010 "expression_parser.cpp"
         break;
       case 31: /* compare_options ::= TK_COMP_NEQUAL */
-#line 102 "grammar.y"
+#line 99 "grammar.y"
 { yymsp[0].minor.yy2 = new NotEqualRelationalExpr(); }
-#line 1014 "expression_parser.cpp"
+#line 1015 "expression_parser.cpp"
         break;
       case 32: /* compare_options ::= TK_COMP_GREATER */
-#line 103 "grammar.y"
+#line 100 "grammar.y"
 { yymsp[0].minor.yy2 = new GreaterThanRelationalExpr(); }
-#line 1019 "expression_parser.cpp"
+#line 1020 "expression_parser.cpp"
         break;
       case 33: /* compare_options ::= TK_COMP_GREATER_EQUAL */
-#line 104 "grammar.y"
+#line 101 "grammar.y"
 { yymsp[0].minor.yy2 = new GreaterOrEqualThanRelationalExpr(); }
-#line 1024 "expression_parser.cpp"
+#line 1025 "expression_parser.cpp"
         break;
       case 34: /* compare_options ::= TK_COMP_LESS */
-#line 105 "grammar.y"
+#line 102 "grammar.y"
 { yymsp[0].minor.yy2 = new LessThanRelationalExpr(); }
-#line 1029 "expression_parser.cpp"
+#line 1030 "expression_parser.cpp"
         break;
       case 35: /* compare_options ::= TK_COMP_LESS_EQUAL */
-#line 106 "grammar.y"
+#line 103 "grammar.y"
 { yymsp[0].minor.yy2 = new LessOrEqualThanRelationalExpr(); }
-#line 1034 "expression_parser.cpp"
+#line 1035 "expression_parser.cpp"
         break;
       case 36: /* print ::= TK_RW_PRINT expr */
-#line 108 "grammar.y"
+#line 105 "grammar.y"
 { yymsp[-1].minor.yy8 = new PrintStatement(yymsp[0].minor.yy2, DEC); }
-#line 1039 "expression_parser.cpp"
+#line 1040 "expression_parser.cpp"
         break;
       case 37: /* print ::= TK_RW_PRINT expr TK_COMMA print_option */
-#line 109 "grammar.y"
+#line 106 "grammar.y"
 { yymsp[-3].minor.yy8 = new PrintStatement(yymsp[-2].minor.yy2, yymsp[0].minor.yy4); }
-#line 1044 "expression_parser.cpp"
+#line 1045 "expression_parser.cpp"
         break;
       case 38: /* print_option ::= TK_BIN */
-#line 111 "grammar.y"
+#line 108 "grammar.y"
 { yymsp[0].minor.yy4 = BIN; }
-#line 1049 "expression_parser.cpp"
+#line 1050 "expression_parser.cpp"
         break;
       case 39: /* print_option ::= TK_HEX */
-#line 112 "grammar.y"
+#line 109 "grammar.y"
 { yymsp[0].minor.yy4 = HEX; }
-#line 1054 "expression_parser.cpp"
+#line 1055 "expression_parser.cpp"
         break;
       case 40: /* print_option ::= TK_DEC */
-#line 113 "grammar.y"
+#line 110 "grammar.y"
 { yymsp[0].minor.yy4 = DEC; }
-#line 1059 "expression_parser.cpp"
+#line 1060 "expression_parser.cpp"
         break;
       case 41: /* assign ::= TK_ID TK_EQUAL expr */
-#line 115 "grammar.y"
+#line 112 "grammar.y"
 { yylhsminor.yy8 = new AssignStatement(yymsp[0].minor.yy2,yymsp[-2].minor.yy0->str_value); delete yymsp[-2].minor.yy0->str_value; }
-#line 1064 "expression_parser.cpp"
+#line 1065 "expression_parser.cpp"
   yymsp[-2].minor.yy8 = yylhsminor.yy8;
         break;
       case 42: /* expr ::= expr OP_ADD term */
-#line 117 "grammar.y"
+#line 114 "grammar.y"
 { yylhsminor.yy2 = new AddExpr(yymsp[-2].minor.yy2,yymsp[0].minor.yy2); }
-#line 1070 "expression_parser.cpp"
+#line 1071 "expression_parser.cpp"
   yymsp[-2].minor.yy2 = yylhsminor.yy2;
         break;
       case 43: /* expr ::= expr OP_SUB term */
-#line 118 "grammar.y"
+#line 115 "grammar.y"
 { yylhsminor.yy2 = new SubExpr(yymsp[-2].minor.yy2,yymsp[0].minor.yy2); }
-#line 1076 "expression_parser.cpp"
+#line 1077 "expression_parser.cpp"
   yymsp[-2].minor.yy2 = yylhsminor.yy2;
         break;
       case 44: /* expr ::= term */
       case 47: /* term ::= factor */ yytestcase(yyruleno==47);
-#line 119 "grammar.y"
+#line 116 "grammar.y"
 { yylhsminor.yy2 = yymsp[0].minor.yy2; }
-#line 1083 "expression_parser.cpp"
+#line 1084 "expression_parser.cpp"
   yymsp[0].minor.yy2 = yylhsminor.yy2;
         break;
       case 45: /* term ::= term OP_MULT factor */
-#line 121 "grammar.y"
+#line 118 "grammar.y"
 { yylhsminor.yy2 = new MulExpr(yymsp[-2].minor.yy2, yymsp[0].minor.yy2); }
-#line 1089 "expression_parser.cpp"
+#line 1090 "expression_parser.cpp"
   yymsp[-2].minor.yy2 = yylhsminor.yy2;
         break;
       case 46: /* term ::= term OP_DIV factor */
-#line 122 "grammar.y"
+#line 119 "grammar.y"
 { yylhsminor.yy2 = new DivExpr(yymsp[-2].minor.yy2, yymsp[0].minor.yy2); }
-#line 1095 "expression_parser.cpp"
+#line 1096 "expression_parser.cpp"
   yymsp[-2].minor.yy2 = yylhsminor.yy2;
         break;
       case 48: /* factor ::= TK_NUMBER */
-#line 125 "grammar.y"
+#line 122 "grammar.y"
 { yylhsminor.yy2 = new NumberExpr(yymsp[0].minor.yy0->int_value); }
-#line 1101 "expression_parser.cpp"
+#line 1102 "expression_parser.cpp"
   yymsp[0].minor.yy2 = yylhsminor.yy2;
         break;
       case 49: /* factor ::= TK_ID */
-#line 126 "grammar.y"
+#line 123 "grammar.y"
 { yylhsminor.yy2 = new VarExpr(yymsp[0].minor.yy0->str_value); delete yymsp[0].minor.yy0->str_value; }
-#line 1107 "expression_parser.cpp"
+#line 1108 "expression_parser.cpp"
   yymsp[0].minor.yy2 = yylhsminor.yy2;
         break;
       case 50: /* factor ::= TK_ID TK_L_PAR opt_args TK_R_PAR */
-#line 127 "grammar.y"
+#line 124 "grammar.y"
 { yylhsminor.yy2 = new FnCallExpr(yymsp[-3].minor.yy0->str_value, yymsp[-1].minor.yy46); }
-#line 1113 "expression_parser.cpp"
+#line 1114 "expression_parser.cpp"
   yymsp[-3].minor.yy2 = yylhsminor.yy2;
         break;
       case 51: /* factor ::= TK_L_PAR expr TK_R_PAR */
-#line 128 "grammar.y"
+#line 125 "grammar.y"
 { yymsp[-2].minor.yy2 = yymsp[-1].minor.yy2; }
-#line 1119 "expression_parser.cpp"
+#line 1120 "expression_parser.cpp"
         break;
       default:
       /* (1) opt_eol ::= TK_EOL */ yytestcase(yyruleno==1);
@@ -1174,10 +1175,10 @@ static void yy_syntax_error(
   NxParserARG_FETCH;
 #define TOKEN yyminor
 /************ Begin %syntax_error code ****************************************/
-#line 48 "grammar.y"
+#line 45 "grammar.y"
 
     printf("Error at: %d\n", yylineno);
-#line 1181 "expression_parser.cpp"
+#line 1182 "expression_parser.cpp"
 /************ End %syntax_error code ******************************************/
   NxParserARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
@@ -1198,10 +1199,6 @@ static void yy_accept(
   /* Here code is inserted which will be executed whenever the
   ** parser accepts */
 /*********** Begin %parse_accept code *****************************************/
-#line 44 "grammar.y"
-
-    printf("parse complete!\n");
-#line 1205 "expression_parser.cpp"
 /*********** End %parse_accept code *******************************************/
   NxParserARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }

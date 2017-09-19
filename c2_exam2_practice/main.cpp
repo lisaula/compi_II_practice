@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <iostream>
 #include "ast.h"
 #include "tokens.h"
 
@@ -10,6 +11,10 @@ void *NxParser(void *, int, Token *);
 void *NxParserFree(void *, void (*freeProc)(void *));
 int yylex();
 extern Token *current_token;
+extern Statement* ast;
+void initialize_temps();
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -47,4 +52,9 @@ int main(int argc, char *argv[])
     // printf("/Fin\n");
 
     NxParserFree(parser, free);
+    
+    mips_data_t ret;
+    initialize_temps();
+    ast->generate_code(&ret);
+    cout<<ret.code<<endl;
 }

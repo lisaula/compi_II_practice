@@ -1,13 +1,11 @@
 x = 2
 print x
 i = 0
-a=1
-b=1
 
 fn_def sum(a,b){
-    x = a + b
+    b = a + b
     return x
 }
 
-z = sum(1,2)
+	z = sum(1,2)
 print(z)

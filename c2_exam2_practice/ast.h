@@ -7,7 +7,9 @@
 #include <iostream>
 #include <string.h>
 #include <map>
-
+#include <stack>
+#include <set>
+#include <stdexcept>
 using namespace std;
 
 #define DEC 2
@@ -18,6 +20,21 @@ using namespace std;
 //   string identifier;
 //   int value;
 // } variable_info_t;
+
+typedef struct mips_data{
+  string code;
+  string place;
+} mips_data_t;
+
+extern set<string> global_vars;
+extern stack<string> temps;
+extern unsigned int next_label;
+extern unsigned int next_var;
+extern map<string, int> variables;
+
+void initialize_temps();
+void generate_header();
+void generate_tail();
 
 class Token
 {
@@ -39,6 +56,7 @@ class Expr
 {
 public:
   virtual int eval() = 0;
+  virtual void generate_code(mips_data_t *ret) = 0;
 };
 
 class BinaryExpr : public Expr
@@ -64,6 +82,7 @@ public:
   string fn_name;
   list<Expr *> *args;
   int eval();
+  void generate_code(mips_data_t *ret);
   // ~FnCallExpr();
   
 };
@@ -73,6 +92,7 @@ class AddExpr : public BinaryExpr
 public:
   AddExpr(Expr *expr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class SubExpr : public BinaryExpr
@@ -80,6 +100,7 @@ class SubExpr : public BinaryExpr
 public:
   SubExpr(Expr *expr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class MulExpr : public BinaryExpr
@@ -87,6 +108,7 @@ class MulExpr : public BinaryExpr
 public:
   MulExpr(Expr *expr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class DivExpr : public BinaryExpr
@@ -94,6 +116,7 @@ class DivExpr : public BinaryExpr
 public:
   DivExpr(Expr *expr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class EqualRelationalExpr : public BinaryExpr
@@ -103,6 +126,7 @@ public:
   EqualRelationalExpr(Expr *epxr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
 
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class NotEqualRelationalExpr : public BinaryExpr
@@ -112,6 +136,7 @@ public:
   NotEqualRelationalExpr(Expr *epxr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
 
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class GreaterThanRelationalExpr : public BinaryExpr
@@ -121,6 +146,7 @@ public:
   GreaterThanRelationalExpr(Expr *epxr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
 
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class GreaterOrEqualThanRelationalExpr : public BinaryExpr
@@ -130,6 +156,7 @@ public:
   GreaterOrEqualThanRelationalExpr(Expr *epxr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
 
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class LessThanRelationalExpr : public BinaryExpr
@@ -139,6 +166,7 @@ public:
   LessThanRelationalExpr(Expr *epxr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
 
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class LessOrEqualThanRelationalExpr : public BinaryExpr
@@ -148,6 +176,7 @@ public:
   LessOrEqualThanRelationalExpr(Expr *epxr1, Expr *expr2) : BinaryExpr(expr1, expr2) {}
 
   int eval();
+  void generate_code(mips_data_t *ret);
 };
 
 class NumberExpr : public Expr
@@ -159,6 +188,7 @@ public:
   }
   int eval() { return number; }
   int number;
+  void generate_code(mips_data_t *ret);
 };
 
 class VarExpr : public Expr
@@ -172,12 +202,27 @@ public:
   }
   int eval();
   string identifier;
+  void generate_code(mips_data_t *ret);
 };
 
 class Statement
 {
 public:
   virtual void exec() = 0;
+  virtual void generate_code(mips_data_t *ret) = 0;
+  virtual void set_local_variables(map<string, string> *vars){
+    this->local_vars = vars;
+  }
+  string find_var(string id) {
+    if(!local_vars)
+      return "";
+
+    if((*local_vars)[id] != ""){
+      return (*local_vars)[id];
+    }
+    return "";
+  }
+  map<string,string>* local_vars;
 };
 
 class PrintStatement : public Statement
@@ -191,6 +236,7 @@ public:
   }
 
   void exec();
+  void generate_code(mips_data_t *ret);
 
   Expr *expr;
   int format;
@@ -209,6 +255,7 @@ public:
   }
 
   void exec();
+  void generate_code(mips_data_t *ret);
 
   Expr *expr;
   string identifier;
@@ -225,6 +272,12 @@ public:
   }
 
   void exec();
+  void generate_code(mips_data_t *ret);
+  void set_local_variables(map<string, string>* vars){
+    Statement::set_local_variables(vars);
+    for(auto i = statementList.begin(); i != statementList.end(); i++)
+        (*i)->set_local_variables(vars);
+  }
 
   list<Statement *> statementList;
 };
@@ -248,12 +301,15 @@ public:
   {
     this->body = body;
     this->else_body = else_body;
+    cond = expr;
   }
 
   void exec();
+  void generate_code(mips_data_t *ret);
 
   Statement *body;
   Statement *else_body;
+  Expr *cond;
 };
 
 class WhileStatement : public Statement
@@ -266,6 +322,7 @@ public:
   }
 
   void exec();
+  void generate_code(mips_data_t *ret);
 
   Expr *expr;
   Statement *body;
@@ -281,6 +338,7 @@ public:
     this->body = body;
   }
   void exec();
+  void generate_code(mips_data_t *ret);
   string name;
   list<string> *parameters;
   Statement *body;
@@ -296,6 +354,7 @@ public:
 
   Expr *expr;
   void exec();
+  void generate_code(mips_data_t *ret);
 };
 
 class FunctionCallStatement : public Statement
@@ -303,13 +362,14 @@ class FunctionCallStatement : public Statement
 public:
   FunctionCallStatement(string *name, list<Expr *> *args) : Statement()
   {
-    this->name = *name;
+    this->fn_name = *name;
     this->args = args;
   }
 
-  string name;
+  string fn_name;
   list<Expr *> *args;
   void exec();
+  void generate_code(mips_data_t *ret);
 };
 
 #endif
