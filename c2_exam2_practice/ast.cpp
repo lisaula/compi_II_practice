@@ -5,6 +5,18 @@ map<string, int> variables;
 map<string, FunctionDefinitionStatement*> funs;
 
 //Expressions
+
+int FnCallExpr::eval()
+{
+    printf("Function call expr: %s( ", this->fn_name.c_str());
+    for(auto i = this->args->begin(); i != this->args->end(); i++)
+        printf("%d, ", (*i)->eval());
+    printf(" )\n");
+
+    auto fn = funs[this->fn_name];
+    fn->body->exec();
+}
+
 int AddExpr::eval()
 {
     return expr1->eval() + expr2->eval();

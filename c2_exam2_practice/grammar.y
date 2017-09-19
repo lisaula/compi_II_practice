@@ -124,4 +124,5 @@ term(L) ::=   factor(F) .                   { L = F; }
 
 factor(L) ::= TK_NUMBER(F) .                { L = new NumberExpr(F->int_value); }
 factor(L) ::= TK_ID(F) .              { L = new VarExpr(F->str_value); delete F->str_value; }
+factor(L) ::= TK_ID(F) TK_L_PAR opt_args(A) TK_R_PAR .              { L = new FnCallExpr(F->str_value, A); }
 factor(L) ::= TK_L_PAR expr(E) TK_R_PAR .    { L = E; }

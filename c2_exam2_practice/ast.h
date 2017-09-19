@@ -54,6 +54,20 @@ public:
   Expr *expr1, *expr2;
 };
 
+class FnCallExpr : public Expr
+{
+public:
+  FnCallExpr(string *fn_name, list<Expr *> *args) : Expr(){
+    this->fn_name = *fn_name;
+    this->args = args;
+  }
+  string fn_name;
+  list<Expr *> *args;
+  int eval();
+  // ~FnCallExpr();
+  
+};
+
 class AddExpr : public BinaryExpr
 {
 public:
