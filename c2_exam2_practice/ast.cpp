@@ -172,6 +172,7 @@ void FunctionDefinitionStatement::generate_code(mips_data_t *ret){
 
     int arg_counter = 0;
     //local_vars = new std::map<string, value> map;
+    //To fix in BlockStatement too
     for(auto it = parameters->begin(); it != parameters->end(); ++it)
     {
         auto param = *it;
