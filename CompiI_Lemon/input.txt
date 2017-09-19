@@ -4,3 +4,23 @@ decl int x = 1;
 decl struct int64{
     decl int size;
 };
+decl int64 x;
+decl int64 y = x;
+
+decl string y = typeof x;
+
+if( y == "int64"){
+    x= 5;
+}else{
+
+}
+
+for(decl int i = 0; i < 100; i = i + 1){
+
+}
+
+while( l == l){
+    
+}
+
+print (typeof x.y);

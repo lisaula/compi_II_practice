@@ -38,6 +38,7 @@
 "double"                { return KW_DOUBLE; }
 "struct"                { return KW_STRUCT; }
 "decl"                  { return KW_DECL; }
+"string"                { return KW_STRING; }
 
 "if"                    { return KW_IF; }
 "else"                  { return KW_ELSE; }
@@ -55,6 +56,8 @@
 [0-9]*"."[0-9]+         { return LIT_DOUBLE; }
 "'"."'"                 { return LIT_CHAR; }
 ["true""false"]         { return LIT_BOOL; }
+\".*\"                  { return LIT_STRING; }
+
 
 [_a-zA-Z]?[a-zA-z0-9_]+ { return TK_ID; }
 

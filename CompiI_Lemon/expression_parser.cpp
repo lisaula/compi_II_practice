@@ -95,13 +95,13 @@
 #endif
 /************* Begin control #defines *****************************************/
 #define YYCODETYPE unsigned char
-#define YYNOCODE 55
+#define YYNOCODE 68
 #define YYACTIONTYPE unsigned char
 #define ParseTOKENTYPE  string * 
 typedef union {
   int yyinit;
   ParseTOKENTYPE yy0;
-  int yy4;
+  int yy62;
 } YYMINORTYPE;
 #ifndef YYSTACKDEPTH
 #define YYSTACKDEPTH 100
@@ -110,16 +110,16 @@ typedef union {
 #define ParseARG_PDECL
 #define ParseARG_FETCH
 #define ParseARG_STORE
-#define YYNSTATE             46
-#define YYNRULE              37
-#define YY_MAX_SHIFT         45
-#define YY_MIN_SHIFTREDUCE   71
-#define YY_MAX_SHIFTREDUCE   107
-#define YY_MIN_REDUCE        108
-#define YY_MAX_REDUCE        144
-#define YY_ERROR_ACTION      145
-#define YY_ACCEPT_ACTION     146
-#define YY_NO_ACTION         147
+#define YYNSTATE             65
+#define YYNRULE              63
+#define YY_MAX_SHIFT         64
+#define YY_MIN_SHIFTREDUCE   111
+#define YY_MAX_SHIFTREDUCE   173
+#define YY_MIN_REDUCE        174
+#define YY_MAX_REDUCE        236
+#define YY_ERROR_ACTION      237
+#define YY_ACCEPT_ACTION     238
+#define YY_NO_ACTION         239
 /************* End control #defines *******************************************/
 
 /* Define the yytestcase() macro to be a no-op if is not already defined
@@ -187,58 +187,82 @@ typedef union {
 **  yy_default[]       Default action for each state.
 **
 *********** Begin parsing tables **********************************************/
-#define YY_ACTTAB_COUNT (107)
+#define YY_ACTTAB_COUNT (195)
 static const YYACTIONTYPE yy_action[] = {
- /*     0 */   146,    6,   34,   74,   45,   76,   77,  100,   85,   98,
- /*    10 */   101,   38,   13,   20,   81,   82,   83,   84,   16,   40,
- /*    20 */    99,  101,   39,    2,   18,  103,  104,  105,  106,   16,
- /*    30 */    40,   99,  101,   21,   14,   89,   85,   36,   16,   40,
- /*    40 */    99,  101,   81,   82,   83,   84,   17,   40,   99,  101,
- /*    50 */    19,   40,   99,  101,    1,   73,   45,   76,   77,   44,
- /*    60 */   108,   12,   44,  107,   12,   88,   41,   99,  101,   42,
- /*    70 */    99,  101,   43,   99,  101,    9,    8,    7,   79,    5,
- /*    80 */     4,   33,   13,    5,    4,   80,  102,   22,   23,   24,
- /*    90 */    25,   31,   28,   26,   27,  109,   29,   30,   32,   90,
- /*   100 */    11,   35,   37,   15,   10,    3,   75,
+ /*     0 */   238,    2,  113,   21,   64,  117,  118,  119,  120,  121,
+ /*    10 */   143,  144,  145,  146,  147,  148,  137,  161,  165,   13,
+ /*    20 */    12,  149,  150,    3,  113,   39,   64,  117,  118,  119,
+ /*    30 */   120,  121,  125,  126,  127,  128,  129,   53,  137,    8,
+ /*    40 */   130,   61,   31,  149,  150,  112,  134,   64,  117,  118,
+ /*    50 */   119,  120,  121,   10,   50,   32,   54,  162,  165,  137,
+ /*    60 */    33,   54,  162,  165,  149,  150,  174,   22,   63,  135,
+ /*    70 */    18,  153,   58,  169,  170,  171,  172,  173,  131,   48,
+ /*    80 */     1,   52,   13,   12,  125,  126,  127,  128,  129,   46,
+ /*    90 */    42,   40,   63,  152,   18,   20,   35,   54,  162,  165,
+ /*   100 */   151,   21,   41,   48,  124,   16,   15,   14,   32,   54,
+ /*   110 */   162,  165,   63,   46,   42,   40,   43,   20,   55,  162,
+ /*   120 */   165,   20,   18,  139,   44,   36,   13,   12,   47,   37,
+ /*   130 */    32,   54,  162,  165,   32,   54,  162,  165,   32,   54,
+ /*   140 */   162,  165,   32,   54,  162,  165,   34,   45,   27,   59,
+ /*   150 */   162,  165,  166,   38,  138,   62,  162,  165,    9,   32,
+ /*   160 */    54,  162,  165,   13,   12,   28,   32,   54,  162,  165,
+ /*   170 */   141,  123,    7,   25,   23,    4,    5,   24,   26,  136,
+ /*   180 */    29,    6,   49,   19,   51,   30,  168,   17,   57,   56,
+ /*   190 */   164,  176,   60,   11,  116,
 };
 static const YYCODETYPE yy_lookahead[] = {
- /*     0 */    38,   39,   40,   41,   42,   43,   44,    2,    2,   52,
- /*    10 */    53,    5,    4,   45,    8,    9,   10,   11,   50,   51,
- /*    20 */    52,   53,   46,   18,   45,   20,   21,   22,   23,   50,
- /*    30 */    51,   52,   53,   45,   48,   49,    2,   46,   50,   51,
- /*    40 */    52,   53,    8,    9,   10,   11,   50,   51,   52,   53,
- /*    50 */    50,   51,   52,   53,    3,   41,   42,   43,   44,    2,
- /*    60 */     0,    4,    2,   36,    4,   49,   51,   52,   53,   51,
- /*    70 */    52,   53,   51,   52,   53,   14,   15,   16,   47,   12,
- /*    80 */    13,   24,    4,   12,   13,    7,   19,   35,   34,   33,
- /*    90 */    32,   26,   29,   31,   30,    0,   28,   27,   25,    1,
- /*   100 */     6,    2,    2,    2,   17,    3,    1,
+ /*     0 */    40,   41,   42,    4,   44,   45,   46,   47,   48,   49,
+ /*    10 */    17,   18,   19,   20,   21,   22,   56,   65,   66,   26,
+ /*    20 */    27,   61,   62,   41,   42,   43,   44,   45,   46,   47,
+ /*    30 */    48,   49,    8,    9,   10,   11,   12,   51,   56,   60,
+ /*    40 */    54,    2,   50,   61,   62,   42,   55,   44,   45,   46,
+ /*    50 */    47,   48,   49,   14,   54,   63,   64,   65,   66,   56,
+ /*    60 */    63,   64,   65,   66,   61,   62,    0,   53,    2,   55,
+ /*    70 */     4,   15,   33,   34,   35,   36,   37,   38,    2,   13,
+ /*    80 */     6,    5,   26,   27,    8,    9,   10,   11,   12,   23,
+ /*    90 */    24,   25,    2,   58,    4,   50,   63,   64,   65,   66,
+ /*   100 */    58,    4,   57,   13,    7,   28,   29,   30,   63,   64,
+ /*   110 */    65,   66,    2,   23,   24,   25,   47,   50,   64,   65,
+ /*   120 */    66,   50,    4,   58,   57,   50,   26,   27,   57,   50,
+ /*   130 */    63,   64,   65,   66,   63,   64,   65,   66,   63,   64,
+ /*   140 */    65,   66,   63,   64,   65,   66,   50,   48,   16,   64,
+ /*   150 */    65,   66,   15,   50,   59,   64,   65,   66,    3,   63,
+ /*   160 */    64,   65,   66,   26,   27,   58,   63,   64,   65,   66,
+ /*   170 */     7,   52,   14,    1,   15,   14,    1,   15,   14,    1,
+ /*   180 */    15,   14,    2,    6,    2,    2,    2,   31,    2,   32,
+ /*   190 */     2,   67,   32,    3,    1,
 };
-#define YY_SHIFT_USE_DFLT (-1)
-#define YY_SHIFT_COUNT (45)
-#define YY_SHIFT_MIN   (0)
-#define YY_SHIFT_MAX   (105)
-static const signed char yy_shift_ofst[] = {
- /*     0 */    57,    5,    5,    5,    5,    5,   60,    5,    5,    5,
- /*    10 */     5,    8,    6,   34,   78,   51,   61,   61,   67,   61,
- /*    20 */    71,   71,   27,   52,   54,   56,   58,   62,   64,   63,
- /*    30 */    68,   70,   65,   73,   95,   98,   99,   94,  100,  101,
- /*    40 */    87,   87,   87,   87,  102,  105,
+#define YY_SHIFT_USE_DFLT (-8)
+#define YY_SHIFT_COUNT (64)
+#define YY_SHIFT_MIN   (-7)
+#define YY_SHIFT_MAX   (193)
+static const short yy_shift_ofst[] = {
+ /*     0 */    90,   90,   66,   90,   39,   39,   39,   39,   39,   39,
+ /*    10 */    39,   39,   39,   39,   39,   39,   39,   39,   76,   -1,
+ /*    20 */    -7,   24,   97,   74,   74,  110,  118,   74,  132,   74,
+ /*    30 */   155,   56,   77,   77,  137,   77,  100,  100,  100,  163,
+ /*    40 */   158,  159,  161,  162,  172,  175,  164,  165,  167,  178,
+ /*    50 */   180,  177,  182,  183,  156,  156,  184,  157,  186,  156,
+ /*    60 */   188,  160,  156,  190,  193,
 };
-#define YY_REDUCE_USE_DFLT (-44)
-#define YY_REDUCE_COUNT (15)
-#define YY_REDUCE_MIN   (-43)
-#define YY_REDUCE_MAX   (31)
+#define YY_REDUCE_USE_DFLT (-49)
+#define YY_REDUCE_COUNT (30)
+#define YY_REDUCE_MIN   (-48)
+#define YY_REDUCE_MAX   (119)
 static const signed char yy_reduce_ofst[] = {
- /*     0 */   -38,  -32,  -21,  -12,   -4,    0,   14,   15,   18,   21,
- /*    10 */   -43,  -14,  -24,   -9,   16,   31,
+ /*     0 */   -40,  -18,    3,    3,   45,   67,   71,   -8,   75,   79,
+ /*    10 */    96,  103,   -3,   33,   54,   85,   91,  -48,  -14,   14,
+ /*    20 */   -21,    0,   -9,   35,   42,   69,   99,   65,   95,  107,
+ /*    30 */   119,
 };
 static const YYACTIONTYPE yy_default[] = {
- /*     0 */   145,  145,  145,  145,  145,  145,  145,  145,  145,  145,
- /*    10 */   145,  145,  145,  145,  145,  124,  130,  129,  145,  128,
- /*    20 */   123,  115,  145,  145,  145,  145,  145,  145,  145,  145,
- /*    30 */   145,  145,  145,  145,  145,  145,  145,  145,  145,  145,
- /*    40 */   134,  133,  132,  131,  145,  145,
+ /*     0 */   237,  178,  237,  177,  237,  237,  237,  237,  237,  237,
+ /*    10 */   237,  237,  237,  237,  237,  237,  237,  237,  237,  237,
+ /*    20 */   237,  237,  237,  237,  237,  237,  237,  237,  203,  237,
+ /*    30 */   196,  237,  219,  218,  237,  217,  205,  195,  185,  237,
+ /*    40 */   237,  237,  237,  237,  237,  237,  237,  237,  237,  237,
+ /*    50 */   237,  237,  237,  237,  223,  222,  237,  230,  237,  221,
+ /*    60 */   237,  226,  220,  237,  237,
 };
 /********** End of lemon-generated parsing tables *****************************/
 
@@ -345,17 +369,20 @@ static const char *const yyTokenName[] = {
   "$",             "TK_EOS",        "TK_ID",         "OP_ASSIGN",   
   "KW_DECL",       "KW_STRUCT",     "TK_L_BRACE",    "TK_R_BRACE",  
   "KW_INT",        "KW_BOOL",       "KW_CHAR",       "KW_DOUBLE",   
-  "OP_PLUS",       "OP_MINUS",      "OP_MUL",        "OP_DIV",      
-  "OP_MOD",        "OP_POW",        "TK_L_PAR",      "TK_R_PAR",    
-  "LIT_INT",       "LIT_BOOL",      "LIT_CHAR",      "LIT_DOUBLE",  
-  "OP_GT",         "OP_GET",        "OP_LET",        "OP_LT",       
-  "OP_NEQ",        "OP_EQ",         "TK_DOT",        "KW_IF",       
-  "KW_ELSE",       "KW_PRINT",      "KW_FOR",        "KW_WHILE",    
-  "KW_TYPEOF",     "error",         "code",          "stmts",       
-  "sumidero",      "stmt",          "st_options",    "assign_st",   
-  "decl_st",       "expr",          "type",          "opt_assign_st",
-  "attr_list",     "attr_decl",     "term",          "ssj_term",    
-  "factor",        "literal",     
+  "KW_STRING",     "KW_IF",         "TK_L_PAR",      "TK_R_PAR",    
+  "KW_ELSE",       "OP_GT",         "OP_GET",        "OP_LT",       
+  "OP_LET",        "OP_EQ",         "OP_NEQ",        "KW_FOR",      
+  "KW_WHILE",      "KW_PRINT",      "OP_PLUS",       "OP_MINUS",    
+  "OP_MUL",        "OP_DIV",        "OP_MOD",        "OP_POW",      
+  "TK_DOT",        "KW_TYPEOF",     "LIT_INT",       "LIT_BOOL",    
+  "LIT_CHAR",      "LIT_DOUBLE",    "LIT_STRING",    "error",       
+  "code",          "stmts",         "stmt",          "opt_stmts",   
+  "st_options",    "conditional_st",  "loop_st",       "assign_st",   
+  "decl_st",       "print_st",      "expr",          "type_w_id",   
+  "opt_assign_st",  "attr_list",     "type",          "attr_decl",   
+  "if_expr",       "bool_expr",     "block_st",      "opt_else",    
+  "compare_option",  "for_st",        "while_st",      "term",        
+  "ssj_term",      "factor",        "literal",     
 };
 #endif /* NDEBUG */
 
@@ -364,42 +391,68 @@ static const char *const yyTokenName[] = {
 */
 static const char *const yyRuleName[] = {
  /*   0 */ "code ::= stmts",
- /*   1 */ "code ::= sumidero",
- /*   2 */ "stmts ::= stmts stmt",
- /*   3 */ "stmts ::= stmt",
- /*   4 */ "stmt ::= st_options TK_EOS",
- /*   5 */ "st_options ::= assign_st",
- /*   6 */ "st_options ::= decl_st",
- /*   7 */ "assign_st ::= TK_ID OP_ASSIGN expr",
- /*   8 */ "decl_st ::= KW_DECL type TK_ID opt_assign_st",
- /*   9 */ "decl_st ::= KW_DECL KW_STRUCT TK_ID TK_L_BRACE attr_list TK_R_BRACE",
- /*  10 */ "type ::= KW_INT",
- /*  11 */ "type ::= KW_BOOL",
- /*  12 */ "type ::= KW_CHAR",
- /*  13 */ "type ::= KW_DOUBLE",
- /*  14 */ "type ::= TK_ID",
- /*  15 */ "opt_assign_st ::= OP_ASSIGN expr",
- /*  16 */ "opt_assign_st ::=",
- /*  17 */ "attr_list ::= attr_list attr_decl",
- /*  18 */ "attr_list ::= attr_decl",
- /*  19 */ "attr_decl ::= KW_DECL type TK_ID TK_EOS",
- /*  20 */ "expr ::= expr OP_PLUS term",
- /*  21 */ "expr ::= expr OP_MINUS term",
- /*  22 */ "expr ::= term",
- /*  23 */ "term ::= term OP_MUL ssj_term",
- /*  24 */ "term ::= term OP_DIV ssj_term",
- /*  25 */ "term ::= term OP_MOD ssj_term",
- /*  26 */ "term ::= ssj_term",
- /*  27 */ "ssj_term ::= ssj_term OP_POW factor",
- /*  28 */ "ssj_term ::= factor",
- /*  29 */ "factor ::= TK_ID",
- /*  30 */ "factor ::= literal",
- /*  31 */ "factor ::= TK_L_PAR expr TK_R_PAR",
- /*  32 */ "literal ::= LIT_INT",
- /*  33 */ "literal ::= LIT_BOOL",
- /*  34 */ "literal ::= LIT_CHAR",
- /*  35 */ "literal ::= LIT_DOUBLE",
- /*  36 */ "sumidero ::= OP_GT OP_GET OP_LET OP_LT OP_NEQ OP_EQ TK_DOT KW_IF KW_ELSE KW_PRINT KW_FOR KW_WHILE KW_TYPEOF",
+ /*   1 */ "stmts ::= stmts stmt",
+ /*   2 */ "stmts ::= stmt",
+ /*   3 */ "opt_stmts ::= stmts",
+ /*   4 */ "opt_stmts ::=",
+ /*   5 */ "stmt ::= st_options TK_EOS",
+ /*   6 */ "stmt ::= conditional_st",
+ /*   7 */ "stmt ::= loop_st",
+ /*   8 */ "st_options ::= assign_st",
+ /*   9 */ "st_options ::= decl_st",
+ /*  10 */ "st_options ::= print_st",
+ /*  11 */ "assign_st ::= TK_ID OP_ASSIGN expr",
+ /*  12 */ "decl_st ::= KW_DECL type_w_id TK_ID opt_assign_st",
+ /*  13 */ "decl_st ::= KW_DECL KW_STRUCT TK_ID TK_L_BRACE attr_list TK_R_BRACE",
+ /*  14 */ "type ::= KW_INT",
+ /*  15 */ "type ::= KW_BOOL",
+ /*  16 */ "type ::= KW_CHAR",
+ /*  17 */ "type ::= KW_DOUBLE",
+ /*  18 */ "type ::= KW_STRING",
+ /*  19 */ "type_w_id ::= type",
+ /*  20 */ "type_w_id ::= TK_ID",
+ /*  21 */ "opt_assign_st ::= OP_ASSIGN expr",
+ /*  22 */ "opt_assign_st ::=",
+ /*  23 */ "attr_list ::= attr_list attr_decl",
+ /*  24 */ "attr_list ::= attr_decl",
+ /*  25 */ "attr_decl ::= KW_DECL type TK_ID TK_EOS",
+ /*  26 */ "conditional_st ::= if_expr",
+ /*  27 */ "if_expr ::= KW_IF TK_L_PAR bool_expr TK_R_PAR block_st opt_else",
+ /*  28 */ "opt_else ::= KW_ELSE block_st",
+ /*  29 */ "opt_else ::=",
+ /*  30 */ "block_st ::= TK_L_BRACE opt_stmts TK_R_BRACE",
+ /*  31 */ "bool_expr ::= expr compare_option expr",
+ /*  32 */ "compare_option ::= OP_GT",
+ /*  33 */ "compare_option ::= OP_GET",
+ /*  34 */ "compare_option ::= OP_LT",
+ /*  35 */ "compare_option ::= OP_LET",
+ /*  36 */ "compare_option ::= OP_EQ",
+ /*  37 */ "compare_option ::= OP_NEQ",
+ /*  38 */ "loop_st ::= for_st",
+ /*  39 */ "loop_st ::= while_st",
+ /*  40 */ "for_st ::= KW_FOR TK_L_PAR decl_st TK_EOS bool_expr TK_EOS assign_st TK_R_PAR block_st",
+ /*  41 */ "while_st ::= KW_WHILE TK_L_PAR bool_expr TK_R_PAR block_st",
+ /*  42 */ "print_st ::= KW_PRINT TK_L_PAR expr TK_R_PAR",
+ /*  43 */ "expr ::= expr OP_PLUS term",
+ /*  44 */ "expr ::= expr OP_MINUS term",
+ /*  45 */ "expr ::= term",
+ /*  46 */ "term ::= term OP_MUL ssj_term",
+ /*  47 */ "term ::= term OP_DIV ssj_term",
+ /*  48 */ "term ::= term OP_MOD ssj_term",
+ /*  49 */ "term ::= ssj_term",
+ /*  50 */ "ssj_term ::= ssj_term OP_POW factor",
+ /*  51 */ "ssj_term ::= factor",
+ /*  52 */ "factor ::= TK_ID",
+ /*  53 */ "factor ::= TK_ID TK_DOT TK_ID",
+ /*  54 */ "factor ::= literal",
+ /*  55 */ "factor ::= TK_L_PAR expr TK_R_PAR",
+ /*  56 */ "factor ::= KW_TYPEOF TK_ID",
+ /*  57 */ "factor ::= KW_TYPEOF TK_ID TK_DOT TK_ID",
+ /*  58 */ "literal ::= LIT_INT",
+ /*  59 */ "literal ::= LIT_BOOL",
+ /*  60 */ "literal ::= LIT_CHAR",
+ /*  61 */ "literal ::= LIT_DOUBLE",
+ /*  62 */ "literal ::= LIT_STRING",
 };
 #endif /* NDEBUG */
 
@@ -728,43 +781,69 @@ static const struct {
   YYCODETYPE lhs;         /* Symbol on the left-hand side of the rule */
   unsigned char nrhs;     /* Number of right-hand side symbols in the rule */
 } yyRuleInfo[] = {
-  { 38, 1 },
-  { 38, 1 },
-  { 39, 2 },
-  { 39, 1 },
+  { 40, 1 },
   { 41, 2 },
+  { 41, 1 },
+  { 43, 1 },
+  { 43, 0 },
+  { 42, 2 },
   { 42, 1 },
   { 42, 1 },
-  { 43, 3 },
-  { 44, 4 },
-  { 44, 6 },
-  { 46, 1 },
-  { 46, 1 },
-  { 46, 1 },
-  { 46, 1 },
-  { 46, 1 },
-  { 47, 2 },
-  { 47, 0 },
-  { 48, 2 },
-  { 48, 1 },
-  { 49, 4 },
-  { 45, 3 },
-  { 45, 3 },
+  { 44, 1 },
+  { 44, 1 },
+  { 44, 1 },
+  { 47, 3 },
+  { 48, 4 },
+  { 48, 6 },
+  { 54, 1 },
+  { 54, 1 },
+  { 54, 1 },
+  { 54, 1 },
+  { 54, 1 },
+  { 51, 1 },
+  { 51, 1 },
+  { 52, 2 },
+  { 52, 0 },
+  { 53, 2 },
+  { 53, 1 },
+  { 55, 4 },
   { 45, 1 },
-  { 50, 3 },
+  { 56, 6 },
+  { 59, 2 },
+  { 59, 0 },
+  { 58, 3 },
+  { 57, 3 },
+  { 60, 1 },
+  { 60, 1 },
+  { 60, 1 },
+  { 60, 1 },
+  { 60, 1 },
+  { 60, 1 },
+  { 46, 1 },
+  { 46, 1 },
+  { 61, 9 },
+  { 62, 5 },
+  { 49, 4 },
   { 50, 3 },
   { 50, 3 },
   { 50, 1 },
-  { 51, 3 },
-  { 51, 1 },
-  { 52, 1 },
-  { 52, 1 },
-  { 52, 3 },
-  { 53, 1 },
-  { 53, 1 },
-  { 53, 1 },
-  { 53, 1 },
-  { 40, 13 },
+  { 63, 3 },
+  { 63, 3 },
+  { 63, 3 },
+  { 63, 1 },
+  { 64, 3 },
+  { 64, 1 },
+  { 65, 1 },
+  { 65, 3 },
+  { 65, 1 },
+  { 65, 3 },
+  { 65, 2 },
+  { 65, 4 },
+  { 66, 1 },
+  { 66, 1 },
+  { 66, 1 },
+  { 66, 1 },
+  { 66, 1 },
 };
 
 static void yy_accept(yyParser*);  /* Forward Declaration */
@@ -829,42 +908,68 @@ static void yy_reduce(
 /********** Begin reduce actions **********************************************/
       default:
       /* (0) code ::= stmts */ yytestcase(yyruleno==0);
-      /* (1) code ::= sumidero */ yytestcase(yyruleno==1);
-      /* (2) stmts ::= stmts stmt */ yytestcase(yyruleno==2);
-      /* (3) stmts ::= stmt */ yytestcase(yyruleno==3);
-      /* (4) stmt ::= st_options TK_EOS */ yytestcase(yyruleno==4);
-      /* (5) st_options ::= assign_st */ yytestcase(yyruleno==5);
-      /* (6) st_options ::= decl_st */ yytestcase(yyruleno==6);
-      /* (7) assign_st ::= TK_ID OP_ASSIGN expr */ yytestcase(yyruleno==7);
-      /* (8) decl_st ::= KW_DECL type TK_ID opt_assign_st */ yytestcase(yyruleno==8);
-      /* (9) decl_st ::= KW_DECL KW_STRUCT TK_ID TK_L_BRACE attr_list TK_R_BRACE */ yytestcase(yyruleno==9);
-      /* (10) type ::= KW_INT */ yytestcase(yyruleno==10);
-      /* (11) type ::= KW_BOOL */ yytestcase(yyruleno==11);
-      /* (12) type ::= KW_CHAR */ yytestcase(yyruleno==12);
-      /* (13) type ::= KW_DOUBLE */ yytestcase(yyruleno==13);
-      /* (14) type ::= TK_ID */ yytestcase(yyruleno==14);
-      /* (15) opt_assign_st ::= OP_ASSIGN expr */ yytestcase(yyruleno==15);
-      /* (16) opt_assign_st ::= */ yytestcase(yyruleno==16);
-      /* (17) attr_list ::= attr_list attr_decl */ yytestcase(yyruleno==17);
-      /* (18) attr_list ::= attr_decl */ yytestcase(yyruleno==18);
-      /* (19) attr_decl ::= KW_DECL type TK_ID TK_EOS */ yytestcase(yyruleno==19);
-      /* (20) expr ::= expr OP_PLUS term */ yytestcase(yyruleno==20);
-      /* (21) expr ::= expr OP_MINUS term */ yytestcase(yyruleno==21);
-      /* (22) expr ::= term */ yytestcase(yyruleno==22);
-      /* (23) term ::= term OP_MUL ssj_term */ yytestcase(yyruleno==23);
-      /* (24) term ::= term OP_DIV ssj_term */ yytestcase(yyruleno==24);
-      /* (25) term ::= term OP_MOD ssj_term */ yytestcase(yyruleno==25);
-      /* (26) term ::= ssj_term */ yytestcase(yyruleno==26);
-      /* (27) ssj_term ::= ssj_term OP_POW factor */ yytestcase(yyruleno==27);
-      /* (28) ssj_term ::= factor */ yytestcase(yyruleno==28);
-      /* (29) factor ::= TK_ID */ yytestcase(yyruleno==29);
-      /* (30) factor ::= literal */ yytestcase(yyruleno==30);
-      /* (31) factor ::= TK_L_PAR expr TK_R_PAR */ yytestcase(yyruleno==31);
-      /* (32) literal ::= LIT_INT */ yytestcase(yyruleno==32);
-      /* (33) literal ::= LIT_BOOL */ yytestcase(yyruleno==33);
-      /* (34) literal ::= LIT_CHAR */ yytestcase(yyruleno==34);
-      /* (35) literal ::= LIT_DOUBLE */ yytestcase(yyruleno==35);
-      /* (36) sumidero ::= OP_GT OP_GET OP_LET OP_LT OP_NEQ OP_EQ TK_DOT KW_IF KW_ELSE KW_PRINT KW_FOR KW_WHILE KW_TYPEOF */ yytestcase(yyruleno==36);
+      /* (1) stmts ::= stmts stmt */ yytestcase(yyruleno==1);
+      /* (2) stmts ::= stmt */ yytestcase(yyruleno==2);
+      /* (3) opt_stmts ::= stmts */ yytestcase(yyruleno==3);
+      /* (4) opt_stmts ::= */ yytestcase(yyruleno==4);
+      /* (5) stmt ::= st_options TK_EOS */ yytestcase(yyruleno==5);
+      /* (6) stmt ::= conditional_st */ yytestcase(yyruleno==6);
+      /* (7) stmt ::= loop_st */ yytestcase(yyruleno==7);
+      /* (8) st_options ::= assign_st */ yytestcase(yyruleno==8);
+      /* (9) st_options ::= decl_st */ yytestcase(yyruleno==9);
+      /* (10) st_options ::= print_st */ yytestcase(yyruleno==10);
+      /* (11) assign_st ::= TK_ID OP_ASSIGN expr */ yytestcase(yyruleno==11);
+      /* (12) decl_st ::= KW_DECL type_w_id TK_ID opt_assign_st */ yytestcase(yyruleno==12);
+      /* (13) decl_st ::= KW_DECL KW_STRUCT TK_ID TK_L_BRACE attr_list TK_R_BRACE */ yytestcase(yyruleno==13);
+      /* (14) type ::= KW_INT */ yytestcase(yyruleno==14);
+      /* (15) type ::= KW_BOOL */ yytestcase(yyruleno==15);
+      /* (16) type ::= KW_CHAR */ yytestcase(yyruleno==16);
+      /* (17) type ::= KW_DOUBLE */ yytestcase(yyruleno==17);
+      /* (18) type ::= KW_STRING */ yytestcase(yyruleno==18);
+      /* (19) type_w_id ::= type */ yytestcase(yyruleno==19);
+      /* (20) type_w_id ::= TK_ID */ yytestcase(yyruleno==20);
+      /* (21) opt_assign_st ::= OP_ASSIGN expr */ yytestcase(yyruleno==21);
+      /* (22) opt_assign_st ::= */ yytestcase(yyruleno==22);
+      /* (23) attr_list ::= attr_list attr_decl */ yytestcase(yyruleno==23);
+      /* (24) attr_list ::= attr_decl */ yytestcase(yyruleno==24);
+      /* (25) attr_decl ::= KW_DECL type TK_ID TK_EOS */ yytestcase(yyruleno==25);
+      /* (26) conditional_st ::= if_expr */ yytestcase(yyruleno==26);
+      /* (27) if_expr ::= KW_IF TK_L_PAR bool_expr TK_R_PAR block_st opt_else */ yytestcase(yyruleno==27);
+      /* (28) opt_else ::= KW_ELSE block_st */ yytestcase(yyruleno==28);
+      /* (29) opt_else ::= */ yytestcase(yyruleno==29);
+      /* (30) block_st ::= TK_L_BRACE opt_stmts TK_R_BRACE */ yytestcase(yyruleno==30);
+      /* (31) bool_expr ::= expr compare_option expr */ yytestcase(yyruleno==31);
+      /* (32) compare_option ::= OP_GT */ yytestcase(yyruleno==32);
+      /* (33) compare_option ::= OP_GET */ yytestcase(yyruleno==33);
+      /* (34) compare_option ::= OP_LT */ yytestcase(yyruleno==34);
+      /* (35) compare_option ::= OP_LET */ yytestcase(yyruleno==35);
+      /* (36) compare_option ::= OP_EQ */ yytestcase(yyruleno==36);
+      /* (37) compare_option ::= OP_NEQ */ yytestcase(yyruleno==37);
+      /* (38) loop_st ::= for_st */ yytestcase(yyruleno==38);
+      /* (39) loop_st ::= while_st */ yytestcase(yyruleno==39);
+      /* (40) for_st ::= KW_FOR TK_L_PAR decl_st TK_EOS bool_expr TK_EOS assign_st TK_R_PAR block_st */ yytestcase(yyruleno==40);
+      /* (41) while_st ::= KW_WHILE TK_L_PAR bool_expr TK_R_PAR block_st */ yytestcase(yyruleno==41);
+      /* (42) print_st ::= KW_PRINT TK_L_PAR expr TK_R_PAR */ yytestcase(yyruleno==42);
+      /* (43) expr ::= expr OP_PLUS term */ yytestcase(yyruleno==43);
+      /* (44) expr ::= expr OP_MINUS term */ yytestcase(yyruleno==44);
+      /* (45) expr ::= term */ yytestcase(yyruleno==45);
+      /* (46) term ::= term OP_MUL ssj_term */ yytestcase(yyruleno==46);
+      /* (47) term ::= term OP_DIV ssj_term */ yytestcase(yyruleno==47);
+      /* (48) term ::= term OP_MOD ssj_term */ yytestcase(yyruleno==48);
+      /* (49) term ::= ssj_term */ yytestcase(yyruleno==49);
+      /* (50) ssj_term ::= ssj_term OP_POW factor */ yytestcase(yyruleno==50);
+      /* (51) ssj_term ::= factor */ yytestcase(yyruleno==51);
+      /* (52) factor ::= TK_ID */ yytestcase(yyruleno==52);
+      /* (53) factor ::= TK_ID TK_DOT TK_ID */ yytestcase(yyruleno==53);
+      /* (54) factor ::= literal */ yytestcase(yyruleno==54);
+      /* (55) factor ::= TK_L_PAR expr TK_R_PAR */ yytestcase(yyruleno==55);
+      /* (56) factor ::= KW_TYPEOF TK_ID */ yytestcase(yyruleno==56);
+      /* (57) factor ::= KW_TYPEOF TK_ID TK_DOT TK_ID */ yytestcase(yyruleno==57);
+      /* (58) literal ::= LIT_INT */ yytestcase(yyruleno==58);
+      /* (59) literal ::= LIT_BOOL */ yytestcase(yyruleno==59);
+      /* (60) literal ::= LIT_CHAR */ yytestcase(yyruleno==60);
+      /* (61) literal ::= LIT_DOUBLE */ yytestcase(yyruleno==61);
+      /* (62) literal ::= LIT_STRING */ yytestcase(yyruleno==62);
         break;
 /********** End reduce actions ************************************************/
   };
@@ -922,7 +1027,7 @@ static void yy_syntax_error(
 #line 17 "grammar.y"
 
     cout<<"Error at: "<<yylineno<<endl;
-#line 926 "expression_parser.cpp"
+#line 1031 "expression_parser.cpp"
 /************ End %syntax_error code ******************************************/
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
@@ -946,7 +1051,7 @@ static void yy_accept(
 #line 13 "grammar.y"
 
     cout<<"Done!"<<endl;
-#line 950 "expression_parser.cpp"
+#line 1055 "expression_parser.cpp"
 /*********** End %parse_accept code *******************************************/
   ParseARG_STORE; /* Suppress warning about unused %extra_argument variable */
 }
